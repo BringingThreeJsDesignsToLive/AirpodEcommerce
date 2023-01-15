@@ -1,6 +1,10 @@
 .App {
-  text-align: center;
+  text-align: center;;
 }
+.nav {
+  color:black
+}
+
 
 .App-logo {
   height: 40vmin;
@@ -21,11 +25,11 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 .App-link {
-  color: #61dafb;
+  color: black;
 }
 
 @keyframes App-logo-spin {
