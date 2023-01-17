@@ -1,0 +1,4 @@
+.product_detail_wrapper {
+    position: relative;
+    z-index: 2;
+}

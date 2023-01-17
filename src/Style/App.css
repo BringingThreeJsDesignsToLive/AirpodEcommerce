@@ -1,42 +1,68 @@
-.App {
-  text-align: center;;
-}
-.nav {
-  color:black
-}
-
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app_wrapper {
+  height: inherit;
+  display: grid;
+  place-items: center;
+  position: relative;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: inherit;
+  padding: 30px;
+  background-color: white;
+  width: 80%;
+  height: 80%;
+  max-width: 85em;
+  max-height: 55em;
+  border-radius: 20px;
+  position: relative;
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app main {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: black;
 }
 
-.App-link {
-  color: black;
+.gradient_background_outer {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  z-index: -1;
+  border-radius: 60% 50% 40% 80%;
+  filter: blur(60px);
+  background: radial-gradient(circle at 50% 50%,
+      rgba(89, 37, 153, 0.684),
+      rgba(124, 72, 179, 0.392));
+  opacity: 1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.gradient_background_inner {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  z-index: -1;
+  border-radius: 60% 50% 40% 80%;
+  filter: blur(60px);
+  background: radial-gradient(circle at 50% 50%,
+      rgba(190, 242, 248),
+      rgba(180, 207, 245));
+  opacity: 1;
 }
+
+/* .gradient-background {
+  position: fixed;
+  display: block;
+  background-color: aqua;
+  width: 58vw;
+  height: 50vh;
+  top: 25vh;
+  left: 36vw;
+  border-radius: 60% 50% 40% 80%;
+  filter: blur(60px);
+  background: radial-gradient(circle at 50% 50%,
+      rgba(190, 242, 248),
+      rgba(180, 207, 245));
+  opacity: 1;
+} */

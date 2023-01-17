@@ -1,54 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.product {
-    position: absolute;
-    top: 25vh;
-    text-align: justify;
-    left: 5vw;
-    max-width: 25vw;
-    width: 100%;
-}
-.foot-bs {
-  position: absolute;
-  top: 90vh;
-  left: 6vw; 
-}
-#link-product {
-  display: block;
-  padding-top: 1.5rem;
-}
-#product-details {
-  padding-top: 1rem;
-}
-.paginator {
-  position: absolute;
-  top: 90vh;
-  left: 90vw;
-  padding-bottom: 50px
-}
-.gradient-background {
-  position: fixed;
-  display: block;
-  background-color: aqua;
-  width: 58vw;
-  height: 50vh;
-  top: 25vh;
-  left: 36vw;
-  border-radius: 60% 50% 40% 80%;
-  filter: blur(60px);
-  background: radial-gradient(circle at 50% 50%,rgba(190, 242, 248), rgba(180, 207, 245));
-  opacity: 1;
+
+html,
+body,
+#root {
+  height: 100%;
 }
 
+* {
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}

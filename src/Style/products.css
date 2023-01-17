@@ -1,0 +1,42 @@
+.product_wrapper {
+    flex: .4;
+    position: relative;
+    z-index: 2;
+}
+
+.product {
+    font-size: 1rem;
+    position: relative;
+}
+
+.product-info {
+    position: relative;
+    display: none;
+}
+
+.product-info.active {
+    display: block;
+}
+
+.product_brand {
+    margin-bottom: 0;
+}
+
+.product_name {
+    margin-top: 0;
+}
+
+.product>a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    margin-top: 2em;
+}
+
+.product>a .icon {
+    width: 20px;
+    height: 20px;
+    margin-left: .5em;
+}
