@@ -27,16 +27,16 @@ const productsData: productDataType[] = [
         id: 3
     },
     {
-        brand: 'Sennheiser',
-        name: 'Wireless N7007',
-        price: 190.0,
+        brand: 'Oraimo',
+        name: 'FreePods 3',
+        price: 90.0,
         id: 4
     },
     {
-        brand: 'Sennheiser',
-        name: 'Wireless N7007',
-        price: 190.0,
-        id: 5
+        brand: 'Oraimo',
+        name: 'FreePods 2',
+        price: 120.0,
+        id: 4
     },
 ]
 
