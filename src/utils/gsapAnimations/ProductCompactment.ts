@@ -4,12 +4,16 @@ import Animation from ".";
 export default class ProductCompactment {
     private animation: Animation;
     productCompactmentWrapper: HTMLElement;
+    disableAnimation: boolean;
     constructor(animation: Animation) {
         this.animation = animation;
+        this.disableAnimation = false;
         this.productCompactmentWrapper = document.querySelector('.product_compactment_wrapper')!;
     }
 
     animate() {
+        if (this.animation.currentAnimationPage !== 'Compactments') this.disableAnimation = true;
+        if (this.disableAnimation) return;
 
     }
 

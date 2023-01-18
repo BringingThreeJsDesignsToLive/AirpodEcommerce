@@ -3,10 +3,12 @@ import gsap from 'gsap'
 import Animation from ".";
 import ProductsAnimation from "./ProductsAnimation";
 import ProductDetailsAnimation from "./ProductDetailsAnimation";
+import ProductCompactment from "./ProductCompactment";
 
 export default class MouseCursorEffect {
     productsAnimation: ProductsAnimation;
     productDetailsAnimation: ProductDetailsAnimation;
+    productCompactment!: ProductCompactment;
     appElement: HTMLElement;
     xCoord!: number;
     yCoord!: number;
@@ -16,6 +18,7 @@ export default class MouseCursorEffect {
     constructor(animation: Animation) {
         this.productsAnimation = animation.products;
         this.productDetailsAnimation = animation.productDetails
+        this.productCompactment = animation.productCompactment;
         this.appElement = document.querySelector('.app') as HTMLElement
 
         this.init();
@@ -73,6 +76,7 @@ export default class MouseCursorEffect {
 
         this.productsAnimation.animate();
         this.productDetailsAnimation.animate();
+        this.productCompactment.animate();
 
 
     }
@@ -117,6 +121,7 @@ export default class MouseCursorEffect {
         // if cursor is hovring on a link suspend all animations
         this.productsAnimation.disableAnimation = shouldHideArrow;
         this.productDetailsAnimation.disableAnimation = shouldHideArrow;
+        this.productCompactment.disableAnimation = shouldHideArrow;
 
 
         const tl = gsap.timeline({ defaults: { duration: .5 } })
