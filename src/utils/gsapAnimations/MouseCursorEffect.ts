@@ -77,12 +77,22 @@ export default class MouseCursorEffect {
 
     }
 
+
     mouseMoveMentCallback(e: MouseEvent) {
         const appRect = e.currentTarget.getBoundingClientRect();
 
 
+
+        // Make the value movies from 0 to (e.currentTarget width)
         this.xCoord = (e.clientX - appRect.left);
         this.yCoord = (e.clientY - appRect.top);
+
+        // Add scroll bar offsets
+        this.xCoord = this.xCoord + e.currentTarget.scrollLeft;
+        this.yCoord = this.yCoord + e.currentTarget.scrollTop;
+
+
+        // console.log(e.currentTarget.scrollHeight - e.currentTarget.clientHeight);
 
         // make mouse values move from 0-1
         this.xPosition = (e.clientX - appRect.left) / appRect.width;
