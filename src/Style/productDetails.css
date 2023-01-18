@@ -31,13 +31,77 @@
 
 .product_detail_specWrapper {
     display: flex;
-    position: relative;
-    right: 0px;
+
 }
+
+/* .product_detail_specWrapper>* {
+    margin: 0 10px;
+} */
 
 .product_detail_spec_sec {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
     min-width: 100%;
     gap: 20px;
+    transition: all 300ms ease-in;
+}
+
+.product_details_spec {
+    position: relative;
+}
+
+.product_detail_spec_sec>div span {
+    display: block;
+    text-align: right;
+}
+
+.product_details_spec::before {
+    content: '';
+    background-color: white;
+    filter: blur(27px);
+    height: 100%;
+    left: -77px;
+    width: 100px;
+    z-index: 2;
+    top: 0;
+    position: absolute;
+    display: block;
+    pointer-events: none;
+}
+
+.product_details_spec::after {
+    content: '';
+    background-color: white;
+    display: block;
+    filter: blur(27px);
+    height: 100%;
+    z-index: 2;
+    top: 0;
+    width: 100px;
+    position: absolute;
+    right: -30px;
+    pointer-events: none;
+}
+
+.product_detail_spec_sec .bar {
+    width: 80%;
+    height: 5px;
+    position: relative;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.341);
+}
+
+.product_detail_spec_sec .bar::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background-color: black;
+    transform-origin: left 50% 0;
+    transform: scaleX(.5);
+}
+
+.product_detail_spec_sec:hover {
+    transform: scaleX(1.02);
 }

@@ -4,40 +4,54 @@ import Animation from ".";
 export default class ProductDetailsAnimation {
     private animation: Animation;
     productDetailsWrapper: HTMLElement;
-    prodectSpecWrapper: HTMLElement;
+    productSpecWrapper: HTMLElement;
     disableAnimation: boolean;
+    activeScrollIndex: number;
     constructor(animation: Animation) {
         this.animation = animation;
         this.disableAnimation = false;
+        this.activeScrollIndex = 0;
         this.productDetailsWrapper = document.querySelector('.product_detail_wrapper')!;
-        this.prodectSpecWrapper = document.querySelector('.product_detail_specWrapper')!;
+        this.productSpecWrapper = document.querySelector('.product_detail_specWrapper')!;
     }
 
     animate() {
         if (this.animation.currentAnimationPage !== 'ProductDetails') this.disableAnimation = true;
         if (this.disableAnimation) return;
 
-        let rightValue = window.getComputedStyle(this.prodectSpecWrapper).getPropertyValue('right')!;
-
-        console.log(rightValue)
-
-
-
-
-        if (this.animation.mouseEffect.xPosition > 0) {
-            this.scrollSpec('Forward')
-        } else if (this.animation.mouseEffect.xPosition < 0) {
-            this.scrollSpec('Backward')
-        }
-
+        this.scrollSpec()
 
     }
 
-    scrollSpec(direction: 'Forward' | 'Backward') {
-        if (direction === 'Forward') {
+    scrollSpec() {
+        const distance = this.productSpecWrapper.children[0].clientWidth;
 
-        } else {
+        if (this.animation.mouseEffect.xPosition > 0) { // animate forward
+            this.activeScrollIndex++
 
+            if (this.activeScrollIndex >= (this.productSpecWrapper.children.length)) {
+                return this.activeScrollIndex = this.productSpecWrapper.children.length - 1;
+            }
+
+            gsap.to(this.productSpecWrapper, {
+                translateX: `-${distance * this.activeScrollIndex}px`,
+                duration: 1,
+                ease: 'power4.Out'
+            })
+
+        } else if (this.animation.mouseEffect.xPosition < 0) { // animate backward
+            console.log('backward')
+            this.activeScrollIndex--
+
+            if (this.activeScrollIndex <= 0) {
+                this.activeScrollIndex = 0;
+            }
+
+            gsap.to(this.productSpecWrapper, {
+                translateX: `-${distance * this.activeScrollIndex}px`,
+                duration: 1,
+                ease: 'power4.Out'
+            })
         }
     }
 
@@ -67,19 +81,30 @@ export default class ProductDetailsAnimation {
     }
 
     hideComponent() {
-        const tl = gsap.timeline({})
-        tl.to(
-            this.productDetailsWrapper.children,
-            {
-                translateY: '20px',
+        if (this.animation.currentAnimationPage === 'Product') {
+            const tl = gsap.timeline({})
+            tl.to(
+                this.productDetailsWrapper.children,
+                {
+                    translateY: '20px',
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: 'Power4.easeOut'
+                },
+            ).to(
+                this.productDetailsWrapper,
+                {
+                    display: 'none',
+                })
+        } else if (this.animation.currentAnimationPage === 'Compactments') {
+            const tl = gsap.timeline({})
+            tl.to(this.productDetailsWrapper, {
+                translateY: '-200px',
                 opacity: 0,
-                duration: 0.5,
-                ease: 'Power4.easeOut'
-            },
-        ).to(
-            this.productDetailsWrapper,
-            {
-                display: 'none',
+                duration: 1,
+                ease: 'power3.out'
             })
+        }
+
     }
 }
