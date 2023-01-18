@@ -1,0 +1,46 @@
+.product_compactment_wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    font-size: .7rem;
+    height: 100%;
+    display: none;
+    opacity: 0;
+}
+
+.product_compactment_container {
+    max-width: 300px;
+    width: fit-content;
+    flex: .7;
+}
+
+.product_compactment_checkout {
+    align-self: flex-end
+}
+
+.product_compactment_checkout>p {
+    margin: 0;
+}
+
+.product_compactment_lists {
+    display: grid;
+    gap: 20px;
+}
+
+.product_compactment_lists>li::marker {
+    font-weight: bolder;
+}
+
+.product_compactment_checkout {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 20px;
+    align-items: center;
+}
+
+.product_compactment_checkout>p:nth-child(2) {
+    font-size: 2rem;
+    font-weight: bolder;
+}

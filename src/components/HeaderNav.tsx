@@ -16,7 +16,9 @@ function HeaderNav() {
             animation.current.headerNav.showNavLinks();
             animation.current.footer.showPaginationIndex();
         } else if (animation.current?.currentAnimationPage === 'Compactments') {
-
+            // The order matters
+            animation.current.currentAnimationPage = 'ProductDetails';
+            animation.current.productCompactment.hideComponent();
         }
     }
     useEffect(() => {

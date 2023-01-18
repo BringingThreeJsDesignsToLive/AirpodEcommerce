@@ -7,6 +7,7 @@ import WebglCanvas from './components/WebglCanvas';
 import Footer from './components/Footer';
 import GsapAnimations from './utils/gsapAnimations'
 import ProductDetail from './components/ProductDetail';
+import ProductCompactments from './components/ProductCompactments';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <main>
             <Products activeProductIndex={activeProductIndex} />
             <ProductDetail activeProductIndex={activeProductIndex} />
+            <ProductCompactments />
           </main>
           <WebglCanvas />
           <Footer />
