@@ -56,13 +56,25 @@ export default class ProductDetailsAnimation {
     }
 
     showComponent() {
+        const appMain = document.querySelector('.app > main') as HTMLElement;
 
         const tl = gsap.timeline({})
         tl.to(
-            this.productDetailsWrapper,
+            appMain,
             {
-                display: 'block'
-            })
+                justifyContent: 'end',
+                alignItems: 'center',
+                duration: 0,
+            },
+        )
+            .to(
+                this.productDetailsWrapper,
+                {
+                    display: 'block',
+                    translateY: '0px',
+                    opacity: 1,
+                    duration: 0,
+                })
             .fromTo(
                 this.productDetailsWrapper.children,
                 {
@@ -101,8 +113,14 @@ export default class ProductDetailsAnimation {
             tl.to(this.productDetailsWrapper, {
                 translateY: '-200px',
                 opacity: 0,
-                duration: 1,
+                duration: .5,
                 ease: 'power3.out'
+            }).to(this.productDetailsWrapper, {
+                display: 'none',
+                duration: 0,
+                onComplete: () => {
+                    this.animation.productCompactment.showComponent();
+                }
             })
         }
 

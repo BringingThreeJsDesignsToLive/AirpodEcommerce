@@ -53,6 +53,7 @@
 .product_detail_spec_sec>div span {
     display: block;
     text-align: right;
+    font-weight: bold;
 }
 
 .product_details_spec::before {

@@ -134,7 +134,6 @@ export default class ProductsAnimation {
 
     hideComponent() {
         // Hide product content on expore product click
-        const appMain = document.querySelector('.app > main') as HTMLElement;
         const productWrapper = document.querySelector('.product_wrapper') as HTMLElement;
         const activeProductInfo = document.querySelector('.product-info.active') as HTMLElement;
         const tl = gsap.timeline({});
@@ -151,14 +150,6 @@ export default class ProductsAnimation {
                 productWrapper,
                 {
                     display: 'none',
-                    duration: 0
-                },
-                'hide'
-            )
-            .to(
-                appMain,
-                {
-                    justifyContent: 'end',
                     duration: 0,
                     onComplete: () => {
                         this.animation.productDetails.showComponent();
@@ -166,6 +157,7 @@ export default class ProductsAnimation {
                 },
                 'hide'
             )
+
 
     }
 
@@ -176,30 +168,28 @@ export default class ProductsAnimation {
         const tl = gsap.timeline({});
 
         tl.to(
+            appMain,
+            {
+                justifyContent: 'start',
+                alignItems: 'center',
+                duration: 0,
+            },
+            'show'
+        ).to(
             productWrapper,
             {
                 display: 'block',
                 duration: 0
             },
             'show'
+        ).to(
+            activeProductInfo.children,
+            {
+                opacity: 1,
+                stagger: 0.1,
+                duration: 0.5
+            }
         )
-            .to(
-                appMain,
-                {
-                    justifyContent: 'start',
-                    duration: 0,
-                },
-                'show'
-            )
-
-            .to(
-                activeProductInfo.children,
-                {
-                    opacity: 1,
-                    stagger: 0.1,
-                    duration: 0.5
-                }
-            )
 
     }
 
