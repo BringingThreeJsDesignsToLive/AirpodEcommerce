@@ -1,4 +1,43 @@
 .product_detail_wrapper {
     position: relative;
     z-index: 2;
+    flex: .6;
+    font-size: .7rem;
+    display: none;
+
+}
+
+.product_detail_wrapper hr {
+    opacity: 0.2 !important;
+}
+
+.product_detail_brand {
+    margin: 0
+}
+
+.product_detail_name {
+    margin: 0;
+}
+
+.product_detail_summary {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+}
+
+.product_details_spec {
+    overflow: hidden;
+}
+
+.product_detail_specWrapper {
+    display: flex;
+    position: relative;
+    right: 0px;
+}
+
+.product_detail_spec_sec {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    min-width: 100%;
+    gap: 20px;
 }
