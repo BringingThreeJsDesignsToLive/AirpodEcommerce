@@ -1,22 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Style/App.css';
 import { BrowserRouter } from 'react-router-dom';
 import HeaderNav from './components/HeaderNav';
-import ProductDetail from './components/ProductDetail';
-import Footer from './components/Footer';
-import WebglCanvas from './components/WebglCanvas';
 import Products from './components/Products';
+import WebglCanvas from './components/WebglCanvas';
+import Footer from './components/Footer';
+import GsapAnimations from './utils/gsapAnimations'
+import ProductDetail from './components/ProductDetail';
 
 
 function App() {
+  const [activeProductIndex, setActiveProductIndex] = useState<number>(0);
+
+  useEffect(() => {
+    const animation = new GsapAnimations();
+
+    const getIndex = () => {
+      const indexDetails = animation.products.getActiveProductIndex();
+      if (indexDetails.animateDirection === 'Forward') setActiveProductIndex(indexDetails.index + 1);
+      if (indexDetails.animateDirection === 'Backward') setActiveProductIndex(indexDetails.index - 1);
+      if (indexDetails.animateDirection === 'None') setActiveProductIndex(indexDetails.index);
+
+    }
+
+    window.addEventListener('click', getIndex);
+
+    return () => {
+      window.removeEventListener('click', getIndex);
+      animation?.dispose();
+    }
+  }, [])
+
+
   return (
     <BrowserRouter>
       <div className="app_wrapper">
         <div className="app">
           <HeaderNav />
           <main>
-            <Products />
-            {/* <ProductDetail /> */}
+            <Products activeProductIndex={activeProductIndex} />
+            <ProductDetail activeProductIndex={activeProductIndex} />
           </main>
           <WebglCanvas />
           <Footer />
