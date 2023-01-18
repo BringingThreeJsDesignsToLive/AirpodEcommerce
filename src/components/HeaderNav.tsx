@@ -10,11 +10,11 @@ function HeaderNav() {
     const handleBackClick = () => {
         if (animation.current?.currentAnimationPage === 'ProductDetails') {
             // The order matters
+            animation.current.currentAnimationPage = 'Product';
             animation.current.productDetails.hideComponent();
             animation.current.products.showComponent();
             animation.current.headerNav.showNavLinks();
             animation.current.footer.showPaginationIndex();
-            animation.current.currentAnimationPage = 'Product';
         } else if (animation.current?.currentAnimationPage === 'Compactments') {
 
         }
