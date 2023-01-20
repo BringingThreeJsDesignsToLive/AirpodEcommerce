@@ -58,34 +58,31 @@ export default class ProductDetailsAnimation {
     showComponent() {
         const appMain = document.querySelector('.app > main') as HTMLElement;
 
-        const tl = gsap.timeline({})
+        const tl = gsap.timeline({ defaults: { duration: 0 } })
         tl.to(
             appMain,
             {
                 justifyContent: 'end',
                 alignItems: 'center',
-                duration: 0,
             },
-        )
-            .to(
-                this.productDetailsWrapper,
-                {
-                    display: 'block',
-                    translateY: '0px',
-                    opacity: 1,
-                    duration: 0,
-                })
+        ).to(
+            this.productDetailsWrapper,
+            {
+                display: 'block',
+                translateY: '0px',
+                opacity: 1,
+            })
             .fromTo(
                 this.productDetailsWrapper.children,
                 {
                     translateY: '20px',
-                    opacity: 0
+                    opacity: 0,
                 },
                 {
                     opacity: 1,
                     translateY: '0px',
                     stagger: 0.2,
-                    duration: 1,
+                    duration: 0.6,
                     ease: 'Power4.easeOut'
                 }
             )

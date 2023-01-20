@@ -87,7 +87,7 @@ export default class MouseCursorEffect {
 
 
 
-        // Make the value movies from 0 to (e.currentTarget width)
+        // Get mouse (x,y) coordinate relative to e.currentTarget element
         this.xCoord = (e.clientX - appRect.left);
         this.yCoord = (e.clientY - appRect.top);
 
@@ -96,7 +96,6 @@ export default class MouseCursorEffect {
         this.yCoord = this.yCoord + e.currentTarget.scrollTop;
 
 
-        // console.log(e.currentTarget.scrollHeight - e.currentTarget.clientHeight);
 
         // make mouse values move from 0-1
         this.xPosition = (e.clientX - appRect.left) / appRect.width;
@@ -118,7 +117,7 @@ export default class MouseCursorEffect {
         // check what cursor is currently hovering on
         let shouldHideArrow = this.getShouldHideArrow(document.elementsFromPoint(x, y)[0]);
 
-        // if cursor is hovring on a link suspend all animations
+        // suspend all animations if cursor is hovering on any links else allow
         this.productsAnimation.disableAnimation = shouldHideArrow;
         this.productDetailsAnimation.disableAnimation = shouldHideArrow;
         this.productCompactment.disableAnimation = shouldHideArrow;
