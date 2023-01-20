@@ -41,7 +41,7 @@ function App() {
           <main>
             <Products activeProductIndex={activeProductIndex} />
             <ProductDetail activeProductIndex={activeProductIndex} />
-            <ProductCompactments />
+            <ProductCompactments activeProductIndex={activeProductIndex} />
           </main>
           <WebglCanvas />
           <Footer />

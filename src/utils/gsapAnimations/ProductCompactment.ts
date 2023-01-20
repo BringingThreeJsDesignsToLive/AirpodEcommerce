@@ -52,14 +52,14 @@ export default class ProductCompactment {
         const innerList = Array.from(this.productCompactmentWrapper.querySelector('.product_compactment_lists')!.children);
         const wrapperChildren = Array.from(this.productCompactmentWrapper.children);
 
-        const tl = gsap.timeline({ defaults: { duration: 0.8 } });
+        const tl = gsap.timeline({ defaults: { duration: 0.5 } });
 
         tl.to(
-            [...wrapperChildren, ...innerList],
+            [...innerList, ...wrapperChildren],
             {
                 translateY: '30px',
                 opacity: 0,
-                stagger: 0.2,
+                stagger: 0.3,
             }
         ).to(
             this.productCompactmentWrapper,
