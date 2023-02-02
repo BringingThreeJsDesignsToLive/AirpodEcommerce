@@ -1,5 +1,6 @@
 import gsap from 'gsap'
 import Animation from ".";
+import AppWebGLExperience from '../WebGL/appExperience'
 
 export default class ProductDetailsAnimation {
     private animation: Animation;
@@ -7,8 +8,10 @@ export default class ProductDetailsAnimation {
     productSpecWrapper: HTMLElement;
     disableAnimation: boolean;
     activeScrollIndex: number;
+    private webGLExperience: AppWebGLExperience;
     constructor(animation: Animation) {
         this.animation = animation;
+        this.webGLExperience = animation.webGLExperience;
         this.disableAnimation = false;
         this.activeScrollIndex = 0;
         this.productDetailsWrapper = document.querySelector('.product_detail_wrapper')!;
@@ -17,10 +20,9 @@ export default class ProductDetailsAnimation {
 
     animate() {
         if (this.animation.currentAnimationPage !== 'ProductDetails') this.disableAnimation = true;
-        if (this.disableAnimation) return;
+        if (this.disableAnimation || this.webGLExperience.world.airpods.disableAnimation) return;
 
-        this.scrollSpec()
-
+        this.scrollSpec();
     }
 
     scrollSpec() {
@@ -56,6 +58,15 @@ export default class ProductDetailsAnimation {
     }
 
     showComponent() {
+        this.disableAnimation = true;
+        this.webGLExperience.world.airpods.disableAnimation = true;
+
+        this.webGLExperience.world.airpods.animate({
+            currentPage: this.animation.currentAnimationPage,
+            previousPage: this.animation.previousAnimationPage,
+            activeIndex: this.animation.products.productInfoCurrentIndex,
+            animateDirection: "Highlight"
+        })
         const appMain = document.querySelector('.app > main') as HTMLElement;
 
         const tl = gsap.timeline({ defaults: { duration: 0 } })
@@ -83,14 +94,29 @@ export default class ProductDetailsAnimation {
                     translateY: '0px',
                     stagger: 0.2,
                     duration: 0.6,
-                    ease: 'Power4.easeOut'
+                    ease: 'Power4.easeOut',
+                    onComplete: () => {
+                        this.disableAnimation = false;
+                    }
                 }
             )
 
     }
 
     hideComponent() {
+        this.disableAnimation = true;
+        this.webGLExperience.world.airpods.disableAnimation = true;
+
         if (this.animation.currentAnimationPage === 'Product') {
+            // animate webGL
+            this.webGLExperience.world.airpods.animate({
+                currentPage: this.animation.currentAnimationPage,
+                previousPage: this.animation.previousAnimationPage,
+                activeIndex: this.animation.products.productInfoCurrentIndex,
+                animateDirection: "Default"
+            })
+
+
             const tl = gsap.timeline({})
             tl.to(
                 this.productDetailsWrapper.children,
@@ -104,8 +130,19 @@ export default class ProductDetailsAnimation {
                 this.productDetailsWrapper,
                 {
                     display: 'none',
+                    onComplete: () => {
+                        this.disableAnimation = false;
+                    }
                 })
         } else if (this.animation.currentAnimationPage === 'Compactments') {
+            // animate webGL
+            this.webGLExperience.world.airpods.animate({
+                currentPage: this.animation.currentAnimationPage,
+                previousPage: this.animation.previousAnimationPage,
+                activeIndex: this.animation.products.productInfoCurrentIndex,
+                animateDirection: "Highlight"
+            })
+
             const tl = gsap.timeline({})
             tl.to(this.productDetailsWrapper, {
                 translateY: '-200px',
@@ -116,6 +153,7 @@ export default class ProductDetailsAnimation {
                 display: 'none',
                 duration: 0,
                 onComplete: () => {
+                    this.disableAnimation = false;
                     this.animation.productCompactment.showComponent();
                 }
             })

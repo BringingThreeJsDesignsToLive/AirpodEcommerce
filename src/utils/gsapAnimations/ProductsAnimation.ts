@@ -1,10 +1,9 @@
 import gsap from 'gsap'
 import Animation from '.';
+import AppWebGLExperience from '../WebGL/appExperience'
+import { getIndexNumberReturnType } from './types';
 
-interface getIndexNumberReturnType {
-    index: number;
-    animateDirection: 'Forward' | 'Backward' | 'None'
-}
+
 
 export default class ProductsAnimation {
     private animation: Animation;
@@ -12,8 +11,10 @@ export default class ProductsAnimation {
     currentActive: HTMLElement | null;
     disableAnimation: boolean;
     productInfoCurrentIndex: number;
+    private webGLExperience: AppWebGLExperience;
     constructor(animation: Animation) {
         this.animation = animation
+        this.webGLExperience = animation.webGLExperience;
         this.disableAnimation = false;
         this.productInfoCurrentIndex = 1;
         this.products = document.querySelectorAll('.product-info');
@@ -23,28 +24,50 @@ export default class ProductsAnimation {
     animate() {
 
         if (this.animation.currentAnimationPage !== 'Product') this.disableAnimation = true;
-        if (this.disableAnimation) return;
+
+        // Don't animate until all previous HtMl and WebGL animation is done
+        if (this.disableAnimation || this.webGLExperience.world.airpods.disableAnimation) return;
 
 
         const indexDetails = this.getActiveProductIndex();
 
 
 
-
         if (indexDetails.animateDirection === 'Forward') { // animate forward
+            // disable animation, will be re-enable when all animation is done
+            this.disableAnimation = true;
+            this.webGLExperience.world.airpods.disableAnimation = true;
+
+            this.productInfoCurrentIndex++;
             this.slideUp(indexDetails.index);
+            this.webGLExperience.world.airpods.animate({
+                currentPage: this.animation.currentAnimationPage,
+                previousPage: this.animation.previousAnimationPage,
+                activeIndex: this.productInfoCurrentIndex,
+                animateDirection: indexDetails.animateDirection
+            })
+
 
         } else if (indexDetails.animateDirection === 'Backward') { // animate backward
+            // disable animation, will be re-enable when all animation is done
+            this.disableAnimation = true;
+            this.webGLExperience.world.airpods.disableAnimation = true;
+
+            this.productInfoCurrentIndex--;
             this.slideDown(indexDetails.index);
+            this.webGLExperience.world.airpods.animate({
+                currentPage: this.animation.currentAnimationPage,
+                previousPage: this.animation.previousAnimationPage,
+                activeIndex: this.productInfoCurrentIndex,
+                animateDirection: indexDetails.animateDirection
+            })
         }
     }
 
     slideUp(index: number) {
-        this.productInfoCurrentIndex++;
         const footerIndex = document.querySelector('.footer-index') as HTMLSpanElement
         const activeProductInfo = this.products[index];
         const incomingElement = this.products[index + 1];
-        this.disableAnimation = true;
 
         const tl = gsap.timeline({ defaults: { duration: .4 } });
         tl.to(activeProductInfo.children, {
@@ -76,11 +99,9 @@ export default class ProductsAnimation {
     }
 
     slideDown(index: number) {
-        this.productInfoCurrentIndex--;
         const footerIndex = document.querySelector('.footer-index') as HTMLSpanElement
         const activeProductInfo = this.products[index]
         const incomingElement = this.products[index - 1];
-        this.disableAnimation = true;
 
         const tl = gsap.timeline({ defaults: { duration: .4 } });
         tl.to(activeProductInfo.children, {
