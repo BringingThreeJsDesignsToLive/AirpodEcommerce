@@ -3,7 +3,7 @@ import { DefaultExperienceOptions } from './types';
 
 export default class Sizes extends EventEmitter {
     public width: number;
-    public canvas: HTMLCanvasElement;
+    private canvas: HTMLCanvasElement;
     public height: number;
     private useWindowSizeOnResize: boolean;
     public pixelRatio: number;

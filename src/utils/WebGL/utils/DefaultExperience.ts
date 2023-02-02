@@ -19,16 +19,16 @@ export default class DefaultExperience {
     debugUI: DebugUI;
 
 
-    constructor(canvas: HTMLCanvasElement, camera3dSpace: Camera3dSpace, options: DefaultExperienceOptions, sources?: Sources[]) {
+    constructor(camera3dSpace: Camera3dSpace, options: DefaultExperienceOptions, sources?: Sources[]) {
         // set up
         this.debugUI = new DebugUI();
-        this.canvas = canvas;
-        this.sizes = new Sizes(canvas, options);
+        this.canvas = document.querySelector(".webgl_canvas") as HTMLCanvasElement;
+        this.sizes = new Sizes(this.canvas, options);
         this.time = new Time();
         this.scene = new THREE.Scene();
         this.camera = new Camera(this, camera3dSpace);
         this.renderer = new Renderer(this)
-        if (sources) this.resourcesLoader = new ResourcesLoader(sources)
+        this.resourcesLoader = new ResourcesLoader(sources)
 
 
 
@@ -48,7 +48,7 @@ export default class DefaultExperience {
         this.camera.destroy();
         this.sizes.destroy();
         this.time.destroy();
-        if (this.resourcesLoader) this.resourcesLoader.destroy();
+        this.resourcesLoader.destroy();
 
         this.scene.traverse((child: any) => {
             if (typeof child.dispose === 'function') child.dispose();

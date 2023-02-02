@@ -5,11 +5,11 @@ import Camera from "./Camera";
 
 export default class Renderer {
     public rendererInstance!: THREE.WebGLRenderer
-    public experience: DefaultExperience;
-    public canvas: HTMLCanvasElement;
-    public scene: THREE.Scene;
-    public camera: Camera;
-    public sizes: Sizes
+    private experience: DefaultExperience;
+    private canvas: HTMLCanvasElement;
+    private scene: THREE.Scene;
+    private camera: Camera;
+    private sizes: Sizes
 
     constructor(experience: DefaultExperience) {
         // Initialize 
@@ -26,7 +26,8 @@ export default class Renderer {
     private setRendererInstance() {
         this.rendererInstance = new THREE.WebGLRenderer({
             canvas: this.canvas,
-            antialias: true
+            antialias: true,
+            alpha: true
         })
         this.rendererInstance.setSize(this.sizes.width, this.sizes.height);
         this.rendererInstance.setPixelRatio(this.sizes.pixelRatio);

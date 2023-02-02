@@ -6,13 +6,13 @@ import DebugUI from './DebugUI';
 
 
 export default class Camera {
-    experience: DefaultExperience
+    private experience: DefaultExperience
     cameraInstance!: THREE.PerspectiveCamera;
-    sizes: Sizes;
-    scene: THREE.Scene;
-    canvas: HTMLCanvasElement;
-    camera3dSpace: Camera3dSpace;
-    debugUI: DebugUI
+    private sizes: Sizes;
+    private scene: THREE.Scene;
+    private canvas: HTMLCanvasElement;
+    private camera3dSpace: Camera3dSpace;
+    private debugUI: DebugUI
 
 
 
@@ -48,7 +48,13 @@ export default class Camera {
                 title: "camera",
                 expanded: false
             })
-            const PARAMS = { camera: { x: 0, y: 20, z: -10 } };
+            const PARAMS = {
+                camera: {
+                    x: this.cameraInstance.position.x,
+                    y: this.cameraInstance.position.y,
+                    z: this.cameraInstance.position.z
+                }
+            };
 
             cameraFolder.addInput(PARAMS, "camera").on("change", () => {
                 const { x, y, z } = PARAMS.camera;
