@@ -10,6 +10,7 @@ export default class MouseCursorEffect {
     productDetailsAnimation: ProductDetailsAnimation;
     productCompactment!: ProductCompactment;
     appElement: HTMLElement;
+    appOuterElement: HTMLElement;
     xCoord!: number;
     yCoord!: number;
     xPosition!: number;
@@ -20,6 +21,7 @@ export default class MouseCursorEffect {
         this.productDetailsAnimation = animation.productDetails
         this.productCompactment = animation.productCompactment;
         this.appElement = document.querySelector('.app') as HTMLElement
+        this.appOuterElement = document.querySelector('.app_outer') as HTMLElement
 
         this.init();
     }
@@ -57,10 +59,10 @@ export default class MouseCursorEffect {
 
         //Add element to the dom
         this.cursorWrapper.append(leftImg, rightImg);
-        this.appElement.append(this.cursorWrapper);
+        this.appOuterElement.append(this.cursorWrapper);
 
-        this.appElement.addEventListener('mousemove', this.mouseMoveMentCallback.bind(this) as any)
-        this.appElement.addEventListener('click', this.mouseClickCallback.bind(this) as any)
+        this.appOuterElement.addEventListener('mousemove', this.mouseMoveMentCallback.bind(this) as any)
+        this.appOuterElement.addEventListener('click', this.mouseClickCallback.bind(this) as any)
     }
 
     mouseClickCallback(e: MouseEvent) {
@@ -89,7 +91,8 @@ export default class MouseCursorEffect {
 
         // Get mouse (x,y) coordinate relative to e.currentTarget element
         this.xCoord = (e.clientX - appRect.left);
-        this.yCoord = (e.clientY - appRect.top);
+        this.yCoord = (e.clientY - appRect.top) - e.currentTarget.clientHeight;
+
 
         // Add scroll bar offsets
         this.xCoord = this.xCoord + e.currentTarget.scrollLeft;

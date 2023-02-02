@@ -5,11 +5,7 @@
   position: relative;
 }
 
-.app {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  height: inherit;
-  padding: 30px;
+.app_outer {
   background-color: white;
   width: 80%;
   height: 80%;
@@ -17,9 +13,18 @@
   max-height: 55em;
   border-radius: 20px;
   position: relative;
+  overflow: hidden;
+
+}
+
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  padding: 30px;
+  position: relative;
   overflow-x: hidden;
   overflow-y: auto;
-
 }
 
 .app::-webkit-scrollbar {

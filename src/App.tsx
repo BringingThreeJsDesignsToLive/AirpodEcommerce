@@ -33,18 +33,21 @@ function App() {
   }, [])
 
 
+
   return (
     <BrowserRouter>
       <div className="app_wrapper">
-        <div className="app">
-          <HeaderNav />
-          <main>
-            <Products activeProductIndex={activeProductIndex} />
-            <ProductDetail activeProductIndex={activeProductIndex} />
-            <ProductCompactments activeProductIndex={activeProductIndex} />
-          </main>
-          <WebglCanvas />
-          <Footer />
+        <div className="app_outer">
+          <div className="app">
+            <HeaderNav />
+            <main>
+              <Products activeProductIndex={activeProductIndex} />
+              <ProductDetail activeProductIndex={activeProductIndex} />
+              <ProductCompactments activeProductIndex={activeProductIndex} />
+            </main>
+            <WebglCanvas />
+            <Footer />
+          </div>
         </div>
         <div role={'presentation'} className="gradient_background_outer" />
       </div>
