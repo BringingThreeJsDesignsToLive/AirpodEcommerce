@@ -15,6 +15,7 @@ function Products({ activeProductIndex }: propsTypes) {
         animation.current?.products.hideComponent();
         animation.current?.headerNav.hideNavLinks();
         animation.current?.footer.hidePaginationIndex();
+        animation.current!.previousAnimationPage = "Product";
         animation.current!.currentAnimationPage = 'ProductDetails';
     }
     useEffect(() => {

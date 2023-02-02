@@ -10,6 +10,7 @@ function HeaderNav() {
     const handleBackClick = () => {
         if (animation.current?.currentAnimationPage === 'ProductDetails') {
             // The order matters
+            animation.current.previousAnimationPage = 'ProductDetails';
             animation.current.currentAnimationPage = 'Product';
             animation.current.productDetails.hideComponent();
             animation.current.products.showComponent();
@@ -17,6 +18,7 @@ function HeaderNav() {
             animation.current.footer.showPaginationIndex();
         } else if (animation.current?.currentAnimationPage === 'Compactments') {
             // The order matters
+            animation.current.previousAnimationPage = 'Compactments';
             animation.current.currentAnimationPage = 'ProductDetails';
             animation.current.productCompactment.hideComponent();
         }

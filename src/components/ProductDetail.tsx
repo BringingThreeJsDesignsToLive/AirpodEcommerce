@@ -13,6 +13,7 @@ function ProductDetail({ activeProductIndex }: propsTypes) {
     const product = useMemo(() => productsData[activeProductIndex], [activeProductIndex]);
 
     const handleOnClick = () => {
+        animation.current!.previousAnimationPage = "ProductDetails"
         animation.current!.currentAnimationPage = 'Compactments'
         animation.current?.productDetails.hideComponent();
     }
@@ -83,7 +84,7 @@ function ProductDetail({ activeProductIndex }: propsTypes) {
 
             </div>
             <hr />
-            <p onClick={handleOnClick} className='hover-effect arrowed_button'>
+            <p onClick={handleOnClick} style={{ marginLeft: 'auto', marginTop: "2em" }} className='hover-effect arrowed_button'>
                 <Link to="/">
                     <span>Watch Completation</span>
                     <ArrowUpRightIcon className='icon' />
