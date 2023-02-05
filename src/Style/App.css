@@ -114,6 +114,14 @@
   transform: scaleX(1);
 }
 
+.hover-effect.reset::before {
+  display: none;
+}
+
+.hover-effect.reset::after {
+  display: none;
+}
+
 .arrowed_button {
   width: fit-content;
 }

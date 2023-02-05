@@ -1,24 +1,34 @@
 header {
     position: relative;
     z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
 }
 
-.nav_wrapper>ul {
+/* Web */
+
+.nav_wrapper.web {
+    display: none;
+}
+
+.nav_wrapper.web>ul {
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: 1fr auto auto auto;
+    grid-template-columns: auto auto auto;
     gap: 20px;
     color: black;
     position: relative;
 }
 
-.nav_wrapper>ul li {
+.nav_wrapper.web>ul li {
     font-weight: bold;
 
 }
 
-.nav_wrapper>ul li a {
+.nav_wrapper.web>ul li a,
+.nav_list_logo a {
     color: inherit;
     text-decoration: none;
 }
@@ -57,4 +67,84 @@ header {
 
 .nav_list_Back>a {
     margin: 0;
+}
+
+/* Mobile */
+.nav_wrapper.mobile {
+    display: block;
+}
+
+.hamburger {
+    cursor: pointer;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    gap: 5px;
+}
+
+.hamburger>span {
+    display: inline-block;
+    border-radius: 10px;
+    background-color: black;
+    height: 4px;
+    width: 35px;
+}
+
+.hamburgerFirst {
+    transform-origin: left center 0;
+    transform: scaleX(.5);
+}
+
+.hamburgerSecond {
+    transform-origin: right center 0;
+    transform: scaleX(.5);
+}
+
+.hamburgerThird {
+    transform-origin: left center 0;
+    transform: scaleX(.5);
+}
+
+.nav_wrapper.mobile {
+    position: relative;
+}
+
+.nav_wrapper.mobile ul {
+    display: flex;
+    position: absolute;
+    left: -78px;
+    transform-origin: center top 0;
+    transform: scaleY(0);
+    background-color: rgba(255, 255, 255, 0.515);
+    padding: 10px;
+    border-radius: 10px;
+    color: black;
+    flex-direction: column;
+    list-style: none;
+}
+
+.nav_list_link.mobile {
+    padding: 10px 5px;
+}
+
+.nav_list_link.mobile a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav_list_link.mobile:hover {
+    background-color: rgba(128, 128, 128, 0.438);
+    border-radius: 10px;
+}
+
+
+
+
+@media only screen and (min-width: 700px) {
+    .nav_wrapper.web {
+        display: block;
+    }
+
+    .nav_wrapper.mobile {
+        display: none;
+    }
 }
