@@ -74,9 +74,11 @@ export default class ProductsAnimation {
             translateY: '-20px',
             opacity: 0,
             stagger: 0.2,
+            onComplete: () => {
+                activeProductInfo.classList.remove('active');
+                incomingElement.classList.add('active');
+            }
         })
-            .to(activeProductInfo, { display: 'none', duration: 0 })
-            .to(incomingElement, { display: 'block', duration: 0 })
             .fromTo(
                 incomingElement.children,
                 {
@@ -89,8 +91,6 @@ export default class ProductsAnimation {
                     translateY: '0px',
                     stagger: 0.2,
                     onComplete: () => {
-                        activeProductInfo.classList.remove('active');
-                        incomingElement.classList.add('active');
                         this.disableAnimation = false;
                         footerIndex.innerHTML = this.productInfoCurrentIndex > 9 ? `${this.productInfoCurrentIndex}` : `0${this.productInfoCurrentIndex}`
                     }
@@ -108,28 +108,27 @@ export default class ProductsAnimation {
             translateY: '20px',
             opacity: 0,
             stagger: 0.2,
-        })
-            .to(activeProductInfo, { display: 'none', duration: 0 })
-            .to(incomingElement, { display: 'block', duration: 0 })
-            .fromTo(
-                incomingElement.children,
-                {
-                    opacity: 0,
-                    translateY: '-20px',
-                    duration: 0
-                },
-                {
-                    opacity: 1,
-                    translateY: '0px',
-                    stagger: 0.2,
-                    onComplete: () => {
-                        activeProductInfo.classList.remove('active');
-                        incomingElement.classList.add('active');
-                        this.disableAnimation = false;
-                        footerIndex.innerHTML = this.productInfoCurrentIndex > 9 ? `${this.productInfoCurrentIndex}` : `0${this.productInfoCurrentIndex}`
-                    }
+            onComplete: () => {
+                activeProductInfo.classList.remove('active');
+                incomingElement.classList.add('active');
+            }
+        }).fromTo(
+            incomingElement.children,
+            {
+                opacity: 0,
+                translateY: '-20px',
+                duration: 0
+            },
+            {
+                opacity: 1,
+                translateY: '0px',
+                stagger: 0.2,
+                onComplete: () => {
+                    this.disableAnimation = false;
+                    footerIndex.innerHTML = this.productInfoCurrentIndex > 9 ? `${this.productInfoCurrentIndex}` : `0${this.productInfoCurrentIndex}`
                 }
-            )
+            }
+        )
     }
 
     getActiveProductIndex(): getIndexNumberReturnType {
@@ -157,7 +156,11 @@ export default class ProductsAnimation {
         // Hide product content on expore product click
         const productWrapper = document.querySelector('.product_wrapper') as HTMLElement;
         const activeProductInfo = document.querySelector('.product-info.active') as HTMLElement;
+        const gradientBackgroundInnerWrapper = document.querySelector(".gradient_background_innerWrapper") as HTMLElement;
+        const gradientChildren = gsap.utils.toArray(gradientBackgroundInnerWrapper.children)
         const tl = gsap.timeline({});
+
+        // this.webGLExperience.world.blurredBackgroundPlanes.toggleVisibility(false);
 
         tl.to(
             activeProductInfo.children,
@@ -166,6 +169,18 @@ export default class ProductsAnimation {
                 stagger: 0.1,
                 duration: 0.5
             }
+        ).to(gradientBackgroundInnerWrapper,
+            {
+                left: "40%",
+                duration: 0.5
+            },
+            "<"
+        ).to(gradientChildren,
+            {
+                backgroundColor: "rgba(89, 37, 153, 0.684)",
+                duration: 0.5
+            },
+            "<"
         )
             .to(
                 productWrapper,
@@ -174,7 +189,7 @@ export default class ProductsAnimation {
                     duration: 0,
                     onComplete: () => {
                         this.animation.productDetails.showComponent();
-                        this.webGLExperience.world.depthOfFieldPostProcessing.togglePassesState(false);
+                        // this.webGLExperience.world.depthOfFieldPostProcessing.togglePassesState(false);
                     }
                 },
                 'hide'
@@ -184,11 +199,14 @@ export default class ProductsAnimation {
     }
 
     showComponent() {
-        this.webGLExperience.world.depthOfFieldPostProcessing.togglePassesState(true);
+        // this.webGLExperience.world.depthOfFieldPostProcessing.togglePassesState(true);
+        // this.webGLExperience.world.blurredBackgroundPlanes.toggleVisibility(true);
 
         const appMain = document.querySelector('.app > main') as HTMLElement;
         const productWrapper = document.querySelector('.product_wrapper') as HTMLElement;
         const activeProductInfo = document.querySelector('.product-info.active') as HTMLElement;
+        const gradientBackgroundInnerWrapper = document.querySelector(".gradient_background_innerWrapper") as HTMLElement;
+        const gradientChildren = gsap.utils.toArray(gradientBackgroundInnerWrapper.children)
         const tl = gsap.timeline({});
 
         tl.to(
@@ -204,6 +222,18 @@ export default class ProductsAnimation {
             {
                 display: 'block',
                 duration: 0
+            },
+            'show'
+        ).to(gradientBackgroundInnerWrapper,
+            {
+                left: "60%",
+                duration: 0.5
+            },
+            'show'
+        ).to(gradientChildren,
+            {
+                backgroundColor: "rgba(190, 242, 248)",
+                duration: 0.5
             },
             'show'
         ).to(

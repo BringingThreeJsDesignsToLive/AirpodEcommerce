@@ -18,6 +18,7 @@
 }
 
 .app {
+  z-index: 4;
   display: grid;
   grid-template-rows: auto 1fr auto;
   height: 100%;
@@ -60,17 +61,37 @@
   opacity: 1;
 }
 
-.gradient_background_inner {
+.gradient_background_innerWrapper {
   position: absolute;
-  width: 80%;
-  height: 80%;
-  z-index: -1;
+  z-index: 2;
+  top: 62%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  align-items: center;
+  display: flex;
+  height: 100%;
+}
+
+.gradient_background_inner {
+  width: 45%;
+  height: 45%;
   border-radius: 60% 50% 40% 80%;
   filter: blur(60px);
-  background: radial-gradient(circle at 50% 50%,
+  background-color: rgba(190, 242, 248);
+  /* background: radial-gradient(circle at 50% 50%,
       rgba(190, 242, 248),
-      rgba(180, 207, 245));
+      rgba(180, 207, 245)); */
   opacity: 1;
+}
+
+.gradient_background_inner.sec {
+  align-self: flex-start;
+  margin-left: -60px;
+  background-color: rgb(123, 212, 222);
+  /* background: radial-gradient(circle at 50% 50%,
+      rgba(190, 242, 248),
+      rgb(27, 111, 228)); */
 }
 
 .hover-effect {

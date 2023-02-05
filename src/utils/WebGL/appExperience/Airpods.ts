@@ -87,7 +87,7 @@ export default class Airpods {
             this.animatedModelGsapInstance = this.animateActiveModel();
 
 
-            this.addDebugUI();
+            // this.addDebugUI();
 
         })
     }

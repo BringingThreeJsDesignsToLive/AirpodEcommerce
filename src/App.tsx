@@ -45,9 +45,14 @@ function App() {
               <ProductDetail activeProductIndex={activeProductIndex} />
               <ProductCompactments activeProductIndex={activeProductIndex} />
             </main>
-            <WebglCanvas />
             <Footer />
           </div>
+          <div className="gradient_background_innerWrapper">
+            <div role={'presentation'} className="gradient_background_inner" />
+            <div role={'presentation'} className="gradient_background_inner sec" />
+          </div>
+
+          <WebglCanvas />
         </div>
         <div role={'presentation'} className="gradient_background_outer" />
       </div>

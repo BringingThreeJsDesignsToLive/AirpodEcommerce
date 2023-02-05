@@ -30,6 +30,7 @@ export default class MouseCursorEffect {
         // set up the rounded border line
         this.cursorWrapper = document.createElement('div');
         this.cursorWrapper.style.position = 'absolute';
+        this.cursorWrapper.style.zIndex = "10";
         this.cursorWrapper.style.width = '40px';
         this.cursorWrapper.style.height = '40px';
         this.cursorWrapper.style.borderRadius = '50%'
