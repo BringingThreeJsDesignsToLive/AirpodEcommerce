@@ -4,7 +4,7 @@
 
 import { Sources } from '../utils/types'
 
-const groupNames = ["airpods"]
+const groupNames = ["airpods", "compactments"]
 
 const sourcesDefault = [
     {
@@ -44,17 +44,36 @@ const sourcesDefault = [
     },
 ] as const
 
+const sourceCompactment = [
+    {
+        name: 'compactment',
+        type: 'gltfModel',
+        path: '/webGL/compactment.glb',
+        useDraco: true,
+        groupName: 'compactments',
+        totalGroupMember: 1
+    },
+] as const
+
+
+
 const sourcesDefaultClone = ([...sourcesDefault] as any) as Sources[];
+const sourceCompactmentClone = ([...sourceCompactment] as any) as Sources[];
 
 // get the total number of sources in the same group
 groupNames.forEach((name) => {
-    const members = sourcesDefaultClone.filter(source => source.groupName === name);
+    const sourcesDefaultMembers = sourcesDefaultClone.filter(source => source.groupName === name);
 
     sourcesDefaultClone.forEach(source => {
-        source.totalGroupMember = members.length
+        if (name === source.groupName) {
+            source.totalGroupMember = sourcesDefaultMembers.length
+        }
+
     })
 })
 
-export type sourcesDefaultNames = typeof sourcesDefault[number]["name"];
 
-export { sourcesDefaultClone };
+export type sourcesDefaultNames = typeof sourcesDefault[number]["name"];
+export type sourcesCompactmentNames = typeof sourceCompactment[number]["name"];
+
+export { sourcesDefaultClone, sourceCompactmentClone };

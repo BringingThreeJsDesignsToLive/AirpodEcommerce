@@ -22,7 +22,15 @@ export default class ProductCompactment {
 
     showComponent() {
         this.disableAnimation = true;
-        this.webGLExperience.world.airpods.disableAnimation = true;
+        this.webGLExperience.world.airpodsCompactment.disableAnimation = true;
+
+        this.webGLExperience.world.airpodsCompactment.animate({
+            currentPage: this.animation.currentAnimationPage,
+            previousPage: this.animation.previousAnimationPage,
+            activeIndex: this.animation.products.productInfoCurrentIndex,
+            animateDirection: "Highlight"
+        })
+
         const appMain = document.querySelector('.app > main')!;
         const innerList = Array.from(this.productCompactmentWrapper.querySelector('.product_compactment_lists')!.children);
         const wrapperChildren = Array.from(this.productCompactmentWrapper.children);
@@ -59,6 +67,13 @@ export default class ProductCompactment {
     hideComponent() {
         this.disableAnimation = true;
         this.webGLExperience.world.airpods.disableAnimation = true;
+
+        this.webGLExperience.world.airpodsCompactment.animate({
+            currentPage: this.animation.currentAnimationPage,
+            previousPage: this.animation.previousAnimationPage,
+            activeIndex: this.animation.products.productInfoCurrentIndex,
+            animateDirection: "Hide"
+        })
 
         const innerList = Array.from(this.productCompactmentWrapper.querySelector('.product_compactment_lists')!.children);
         const wrapperChildren = Array.from(this.productCompactmentWrapper.children);

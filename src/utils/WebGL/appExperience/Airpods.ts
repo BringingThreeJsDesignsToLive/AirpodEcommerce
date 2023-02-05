@@ -6,13 +6,8 @@ import ResourcesLoader from "../utils/ResourcesLoader";
 import { sourcesDefaultClone, sourcesDefaultNames } from "./sources";
 import { AnimateDirectionType, AnimationPagesType } from '../../gsapAnimations/types';
 import Animation from '../../gsapAnimations';
-
-interface AnimateMethodProps {
-    currentPage: AnimationPagesType,
-    previousPage: AnimationPagesType,
-    activeIndex: number,
-    animateDirection: AnimateDirectionType
-}
+import AirpodsCompactment from './AirpodsCompactment';
+import { AnimateMethodProps } from './types';
 
 export default class Airpods {
     private experience: AppExperience;
@@ -21,21 +16,23 @@ export default class Airpods {
     private loadedResource: Record<sourcesDefaultNames, any>;
     private scene: THREE.Scene;
     private debugUI: DebugUI
+    private airpodsCompactment: AirpodsCompactment;
     private gsapAnimation: Animation;
     private activeProductIndex!: number; // active product index that start from 1
-    private models!: any;
+    models!: any;
     private modelDistance!: THREE.Vector3 // The distance between each object relative to the z and x axis
     private productPageActiveModelCoord!: THREE.Vector3; // Active model coordinate just before user left the product page
     private productDetailsPageActiveModelCoord!: THREE.Vector3; // Active model coordinate just before user left the productDetails page
     private animatedModelGsapInstance!: GSAPTimeline;
     disableAnimation: boolean;
-    constructor(experience: AppExperience) {
+    constructor(experience: AppExperience, airpodsCompactment: AirpodsCompactment) {
         this.experience = experience;
         this.camera = experience.camera.cameraInstance;
         this.scene = experience.scene;
         this.debugUI = experience.debugUI;
         this.resourceLoader = experience.resourcesLoader
         this.loadedResource = experience.resourcesLoader?.items as Record<sourcesDefaultNames, any>
+        this.airpodsCompactment = airpodsCompactment;
         this.disableAnimation = false;
 
         this.gsapAnimation = experience.gsapAnimation;
@@ -50,6 +47,8 @@ export default class Airpods {
         const groupName = sourcesDefaultClone[0].groupName
 
         this.resourceLoader.on(`${groupName}Ready`, () => {
+            //  initialize airpods compactment after airpods has loaded
+            this.airpodsCompactment.init();
 
             this.models = {
                 airpod1: this.loadedResource.airpod1,
@@ -198,11 +197,9 @@ export default class Airpods {
                 activeModelNewPosition.copy(this.productDetailsPageActiveModelCoord);
             }
 
-            console.log(activeModelNewPosition)
-
-
-
             const tl = gsap.timeline({ defaults: { duration: 1 } })
+
+
 
             tl.to(
                 otherModels,
@@ -254,8 +251,7 @@ export default class Airpods {
 
     private animateProductCompactment(animateDirection: AnimateDirectionType, previousPage: AnimationPagesType) {
         const activeModel = this.models[`airpod${this.activeProductIndex}`];
-
-        if (animateDirection === 'Highlight') {
+        if (animateDirection === 'Hide') {
             const tl = gsap.timeline({ defaults: { duration: 1 } })
 
             tl.to(activeModel.scene.position,
@@ -326,6 +322,11 @@ export default class Airpods {
                     y: this.models.airpod1.scene.position.y,
                     z: this.models.airpod1.scene.position.z,
                 },
+                airpods1Scale: {
+                    x: this.models.airpod1.scene.scale.x,
+                    y: this.models.airpod1.scene.scale.y,
+                    z: this.models.airpod1.scene.scale.z,
+                },
                 airpods2Positions: {
                     x: this.models.airpod2.scene.position.x,
                     y: this.models.airpod2.scene.position.y,
@@ -341,6 +342,10 @@ export default class Airpods {
             airpodFolder.addInput(PARAMS, 'airpods1Positions').on('change', () => {
                 const { x, y, z } = PARAMS.airpods1Positions;
                 this.models.airpod1.scene.position.set(x, y, z)
+            })
+            airpodFolder.addInput(PARAMS, 'airpods1Scale').on('change', () => {
+                const { x, y, z } = PARAMS.airpods1Scale;
+                this.models.airpod1.scene.scale.set(x, y, z)
             })
 
             airpodFolder.addInput(PARAMS, 'airpods2Positions').on('change', () => {

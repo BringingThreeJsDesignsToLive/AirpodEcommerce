@@ -5,7 +5,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import ResourcesLoader from '../utils/ResourcesLoader';
 import { sourcesDefaultNames } from './sources';
 import Airpods from './Airpods';
-import TransparentBackground from './TransparentBackground';
+import DepthOfFieldPostProcessing from './DepthOfFieldPostProcessing';
+import AirpodsCompactment from './AirpodsCompactment';
 
 
 export default class World {
@@ -17,7 +18,8 @@ export default class World {
     gsapAnimation!: Animation;
     orbitControls!: OrbitControls;
     airpods: Airpods;
-    transparentBackground: TransparentBackground;
+    airpodsCompactment: AirpodsCompactment
+    depthOfFieldPostProcessing: DepthOfFieldPostProcessing;
     sunlight!: THREE.DirectionalLight
 
     constructor(experience: AppExperience) {
@@ -27,13 +29,14 @@ export default class World {
         this.resourceLoader = experience.resourcesLoader;
         this.loadedResource = experience.resourcesLoader?.items as Record<sourcesDefaultNames, any>
         this.debugUI = experience.debugUI;
+        this.depthOfFieldPostProcessing = new DepthOfFieldPostProcessing(experience);
+        this.airpodsCompactment = new AirpodsCompactment(experience);
+        this.airpods = new Airpods(experience, this.airpodsCompactment);
 
-        this.transparentBackground = new TransparentBackground(experience);
-        this.airpods = new Airpods(experience);
 
         this.init();
-        this.transparentBackground.init();
         this.airpods.init();
+        this.depthOfFieldPostProcessing.init();
     }
 
     init() {
@@ -41,7 +44,7 @@ export default class World {
 
         this.experience.renderer.rendererInstance.outputEncoding = THREE.sRGBEncoding;
         // this.experience.renderer.rendererInstance.shadowMap.enabled = true;
-        this.experience.renderer.rendererInstance.setClearColor(0x000000, 0);
+        this.experience.renderer.rendererInstance.setClearColor(new THREE.Color("white"), 1);
 
         this.addDebugUi();
         // this.initiateOrbitControls();
@@ -51,11 +54,10 @@ export default class World {
         const ambientLight = new THREE.AmbientLight(new THREE.Color("#ffffff"), 0.5);
 
         this.sunlight = new THREE.DirectionalLight(new THREE.Color("#ffffff"), 1);
-        this.sunlight.position.set(0, 0, 7);
+        this.sunlight.position.set(5.54, 2.84, 3.44);
         this.sunlight.castShadow = true
 
-        this.experience.camera.cameraInstance.add(this.sunlight);
-        this.scene.add(ambientLight);
+        this.scene.add(ambientLight, this.sunlight);
     }
 
     addDebugUi() {
@@ -88,10 +90,15 @@ export default class World {
 
     }
 
+    resize() {
+        this.depthOfFieldPostProcessing.resize();
+    }
+
 
     update = () => {
         // update on each tick
-        this.airpods.update()
+        this.airpods.update();
+        this.depthOfFieldPostProcessing.update();
         if (this.orbitControls) this.orbitControls.update()
     }
 

@@ -35,6 +35,13 @@ export default class AppExperience extends DefaultExperience {
 
         //Time tick event
         this.time.on('tick', this.updateWithTick.bind(this))
+
+        // window resize
+        this.sizes.on('resize', this.onResize.bind(this))
+    }
+
+    onResize() {
+        this.world.resize()
     }
 
     updateWithTick() {
