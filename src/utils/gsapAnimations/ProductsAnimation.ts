@@ -22,11 +22,11 @@ export default class ProductsAnimation {
     }
 
     animate() {
-
         if (this.animation.currentAnimationPage !== 'Product') this.disableAnimation = true;
 
         // Don't animate until all previous HtMl and WebGL animation is done
         if (this.disableAnimation || this.webGLExperience.world.airpods.disableAnimation) return;
+
 
 
         const indexDetails = this.getActiveProductIndex();
@@ -174,6 +174,7 @@ export default class ProductsAnimation {
                     duration: 0,
                     onComplete: () => {
                         this.animation.productDetails.showComponent();
+                        this.webGLExperience.world.depthOfFieldPostProcessing.togglePassesState(false);
                     }
                 },
                 'hide'
@@ -183,6 +184,8 @@ export default class ProductsAnimation {
     }
 
     showComponent() {
+        this.webGLExperience.world.depthOfFieldPostProcessing.togglePassesState(true);
+
         const appMain = document.querySelector('.app > main') as HTMLElement;
         const productWrapper = document.querySelector('.product_wrapper') as HTMLElement;
         const activeProductInfo = document.querySelector('.product-info.active') as HTMLElement;

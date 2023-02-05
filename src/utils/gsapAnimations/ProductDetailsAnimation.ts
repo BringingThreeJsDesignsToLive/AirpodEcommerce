@@ -42,7 +42,6 @@ export default class ProductDetailsAnimation {
             })
 
         } else if (this.animation.mouseEffect.xPosition < 0) { // animate backward
-            console.log('backward')
             this.activeScrollIndex--
 
             if (this.activeScrollIndex <= 0) {
@@ -140,8 +139,9 @@ export default class ProductDetailsAnimation {
                 currentPage: this.animation.currentAnimationPage,
                 previousPage: this.animation.previousAnimationPage,
                 activeIndex: this.animation.products.productInfoCurrentIndex,
-                animateDirection: "Highlight"
+                animateDirection: "Hide"
             })
+
 
             const tl = gsap.timeline({})
             tl.to(this.productDetailsWrapper, {
