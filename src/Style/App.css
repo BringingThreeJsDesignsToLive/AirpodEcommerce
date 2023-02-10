@@ -7,8 +7,8 @@
 
 .app_outer {
   background-color: white;
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   max-width: 85em;
   max-height: 55em;
   border-radius: 20px;
@@ -39,7 +39,6 @@
 
 .app::-webkit-scrollbar-thumb {
   background-color: darkgrey;
-  /* outline: 1px solid slategrey; */
   border-radius: 10px;
 }
 
@@ -79,9 +78,6 @@
   border-radius: 60% 50% 40% 80%;
   filter: blur(60px);
   background-color: rgba(190, 242, 248);
-  /* background: radial-gradient(circle at 50% 50%,
-      rgba(190, 242, 248),
-      rgba(180, 207, 245)); */
   opacity: 1;
 }
 
@@ -89,9 +85,6 @@
   align-self: flex-start;
   margin-left: -60px;
   background-color: rgb(123, 212, 222);
-  /* background: radial-gradient(circle at 50% 50%,
-      rgba(190, 242, 248),
-      rgb(27, 111, 228)); */
 }
 
 .hover-effect {
@@ -140,19 +133,9 @@
   margin-left: .5em;
 }
 
-
-/* .gradient-background {
-  position: fixed;
-  display: block;
-  background-color: aqua;
-  width: 58vw;
-  height: 50vh;
-  top: 25vh;
-  left: 36vw;
-  border-radius: 60% 50% 40% 80%;
-  filter: blur(60px);
-  background: radial-gradient(circle at 50% 50%,
-      rgba(190, 242, 248),
-      rgba(180, 207, 245));
-  opacity: 1;
-} */
+@media only screen and (min-width: 700px) {
+  .app_outer {
+    width: 80%;
+    height: 80%;
+  }
+}

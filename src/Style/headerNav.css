@@ -1,6 +1,6 @@
 header {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
@@ -129,6 +129,7 @@ header {
 .nav_list_link.mobile a {
     text-decoration: none;
     color: inherit;
+    font-weight: bold;
 }
 
 .nav_list_link.mobile:hover {

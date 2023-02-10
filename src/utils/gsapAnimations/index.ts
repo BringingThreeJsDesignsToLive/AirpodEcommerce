@@ -27,7 +27,7 @@ export default class Animation {
         }
         this.previousAnimationPage = "None";
         this.currentAnimationPage = 'Product';
-        this.webGLExperience = new AppWebGLExperience(this);
+        // this.webGLExperience = new AppWebGLExperience(this);
         this.products = new Products(this);
         this.headerNav = new HeaderNavAnimation(this);
         this.footer = new FooterAnimation(this);

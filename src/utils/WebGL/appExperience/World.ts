@@ -7,6 +7,7 @@ import { sourcesDefaultNames } from './sources';
 import Airpods from './Airpods';
 import DepthOfFieldPostProcessing from './DepthOfFieldPostProcessing';
 import AirpodsCompactment from './AirpodsCompactment';
+import BlurredBackgroundPlanes from './BlurredBackgroundPlanes';
 
 
 export default class World {
@@ -20,6 +21,7 @@ export default class World {
     airpods: Airpods;
     airpodsCompactment: AirpodsCompactment
     depthOfFieldPostProcessing: DepthOfFieldPostProcessing;
+    blurredBackgroundPlanes: BlurredBackgroundPlanes;
     sunlight!: THREE.DirectionalLight
 
     constructor(experience: AppExperience) {
@@ -32,11 +34,13 @@ export default class World {
         this.depthOfFieldPostProcessing = new DepthOfFieldPostProcessing(experience);
         this.airpodsCompactment = new AirpodsCompactment(experience);
         this.airpods = new Airpods(experience, this.airpodsCompactment);
+        this.blurredBackgroundPlanes = new BlurredBackgroundPlanes(experience);
 
 
-        this.init();
-        this.airpods.init();
-        this.depthOfFieldPostProcessing.init();
+        // this.init();
+        // this.airpods.init();
+        // // this.depthOfFieldPostProcessing.init();
+        // this.blurredBackgroundPlanes.init();
     }
 
     init() {
@@ -44,7 +48,6 @@ export default class World {
 
         this.experience.renderer.rendererInstance.outputEncoding = THREE.sRGBEncoding;
         // this.experience.renderer.rendererInstance.shadowMap.enabled = true;
-        this.experience.renderer.rendererInstance.setClearColor(new THREE.Color("white"), 1);
 
         this.addDebugUi();
         // this.initiateOrbitControls();
@@ -98,8 +101,9 @@ export default class World {
     update = () => {
         // update on each tick
         this.airpods.update();
-        this.depthOfFieldPostProcessing.update();
+        // this.depthOfFieldPostProcessing.update();
         if (this.orbitControls) this.orbitControls.update()
+
     }
 
     destroy = () => {

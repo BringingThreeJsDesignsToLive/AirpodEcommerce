@@ -1,5 +1,5 @@
 .product_wrapper {
-    flex: .4;
+    flex: 1;
     position: relative;
     z-index: 2;
 }
@@ -24,4 +24,10 @@
 
 .product_name {
     margin-top: 0;
+}
+
+@media only screen and (min-width: 700px) {
+    .product_wrapper {
+        flex: .4;
+    }
 }

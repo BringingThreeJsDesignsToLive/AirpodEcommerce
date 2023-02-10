@@ -1,34 +1,53 @@
 import * as THREE from 'three'
+import gsap from 'gsap';
 import AppExperience from ".";
 import DebugUI from '../utils/DebugUI';
+import Sizes from '../utils/Sizes';
 
-export default class TransparentBackground {
+export default class BlurredBackgroundPlanes {
+    private experience: AppExperience;
     private scene: THREE.Scene;
     private camera: THREE.PerspectiveCamera;
     private debugUI: DebugUI;
+    private sizes: Sizes;
     private transparentBackground!: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
+    private circlBackground!: THREE.Mesh<THREE.CircleGeometry, THREE.MeshBasicMaterial>;
     constructor(experience: AppExperience) {
+        this.experience = experience;
         this.scene = experience.scene;
         this.camera = experience.camera.cameraInstance;
         this.debugUI = experience.debugUI;
+        this.sizes = experience.sizes
+
     }
 
-
     init() {
-        // calculate the plane size using the camera FOV so as to fill up the entire screen
+        // this.setUpTransparentPlane();
+        // this.setUpColoredPlanes();
+        // this.addDebugUI();
+    }
+
+    private setUpColoredPlanes() {
+        const geometry = new THREE.CircleGeometry(5, 32);
+        const material = new THREE.MeshBasicMaterial({ color: 'red', transparent: true, opacity: 0.5 })
+
+        this.circlBackground = new THREE.Mesh(geometry, material);
+
+        this.circlBackground.position.set(0, 0, -20);
+
+        this.camera.add(this.circlBackground);
+    }
+
+    private setUpTransparentPlane() {
+        // calculate the plane size using the camera FOV so as to fill up the entire screen that wraps the canvas
         let ang_rad = this.camera.fov * Math.PI / 180;
         let fov_y = this.camera.position.z * Math.tan(ang_rad / 2) * 2;
 
         const geometry = new THREE.PlaneGeometry(fov_y * this.camera.aspect, fov_y);
-        // const material = new THREE.MeshPhongMaterial({ color: "#ffffff", refractionRatio: 0.98, reflectivity: 0.9 });
-        // material.transmission = 1;
-        // material.metalness = 0;
-        // material.thickness = 0;
-        // material.roughness = 0;
 
         const material = new THREE.MeshBasicMaterial({})
         material.transparent = true;
-        material.opacity = 0.90
+        material.opacity = 0.05
         material.color = new THREE.Color("#ffffff")
 
 
@@ -36,8 +55,26 @@ export default class TransparentBackground {
 
         this.transparentBackground.position.set(0, 0, -4)
 
-        this.camera.add(this.transparentBackground);
-        this.addDebugUI();
+        // this.camera.add(this.transparentBackground);
+    }
+
+    toggleVisibility(shouldDisplay: boolean) {
+
+        if (shouldDisplay) {
+            gsap.to(this.circlBackground.material, {
+                opacity: 0.5,
+                duration: 1,
+                ease: 'power3.inOut'
+            })
+        } else {
+            gsap.to(this.circlBackground.material,
+                {
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'power3.inOut'
+                }
+            )
+        }
     }
 
     private addDebugUI() {
@@ -48,26 +85,9 @@ export default class TransparentBackground {
             })
 
             const PARAMS = {
-                // thickness: this.transparentBackground.material.thickness,
-                // transmission: this.transparentBackground.material.transmission,
-                // roughness: this.transparentBackground.material.roughness,
-                // metalness: this.transparentBackground.material.metalness,
                 opacity: this.transparentBackground.material.opacity,
                 color: this.transparentBackground.material.color
             }
-
-            // transparentBackgroundFolder.addInput(PARAMS, 'thickness').on('change', () => {
-            //     this.transparentBackground.material.thickness = PARAMS.thickness
-            // })
-            // transparentBackgroundFolder.addInput(PARAMS, 'transmission').on('change', () => {
-            //     this.transparentBackground.material.transmission = PARAMS.transmission
-            // })
-            // transparentBackgroundFolder.addInput(PARAMS, 'roughness').on('change', () => {
-            //     this.transparentBackground.material.roughness = PARAMS.roughness
-            // })
-            // transparentBackgroundFolder.addInput(PARAMS, 'metalness').on('change', () => {
-            //     this.transparentBackground.material.metalness = PARAMS.metalness
-            // })
             transparentBackgroundFolder.addInput(PARAMS, 'opacity').on('change', () => {
                 this.transparentBackground.material.opacity = PARAMS.opacity
             })

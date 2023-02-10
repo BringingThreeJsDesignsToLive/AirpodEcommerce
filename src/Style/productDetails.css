@@ -1,7 +1,7 @@
 .product_detail_wrapper {
     position: relative;
     z-index: 2;
-    flex: .6;
+    flex: 1;
     font-size: .7rem;
     display: none;
 
@@ -105,4 +105,10 @@
 
 .product_detail_spec_sec:hover {
     transform: scaleX(1.02);
+}
+
+@media only screen and (min-width: 700px) {
+    .product_detail_wrapper {
+        flex: .6;
+    }
 }

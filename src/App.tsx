@@ -52,7 +52,7 @@ function App() {
             <div role={'presentation'} className="gradient_background_inner sec" />
           </div>
 
-          <WebglCanvas />
+          {/* <WebglCanvas /> */}
         </div>
         <div role={'presentation'} className="gradient_background_outer" />
       </div>
