@@ -5,6 +5,7 @@ export default class Time extends EventEmitter {
     public currentTime: number
     public elaspedTime: number
     public deltaTime: number
+    private animationFrameId!: number
 
     constructor() {
         // Initialize
@@ -14,6 +15,7 @@ export default class Time extends EventEmitter {
         this.elaspedTime = 0;
         this.deltaTime = 16;
 
+        this.tick = this.tick.bind(this);
         this.tick()
 
     }
@@ -25,10 +27,11 @@ export default class Time extends EventEmitter {
         this.elaspedTime = currentTime - this.start
 
         this.trigger('tick')
-        window.requestAnimationFrame(this.tick.bind(this))
+        this.animationFrameId = window.requestAnimationFrame(this.tick)
     }
 
     destroy() {
         this.off('tick');
+        window.cancelAnimationFrame(this.animationFrameId)
     }
 }

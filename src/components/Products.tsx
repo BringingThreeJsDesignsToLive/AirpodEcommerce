@@ -21,7 +21,6 @@ function Products({ activeProductIndex }: propsTypes) {
     useEffect(() => {
         animation.current = new GsapAnimations();
 
-        return () => animation.current?.dispose();
     }, [])
     return (
         <div className="product_wrapper">

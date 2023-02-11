@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 interface Name {
     original: string
     value: string

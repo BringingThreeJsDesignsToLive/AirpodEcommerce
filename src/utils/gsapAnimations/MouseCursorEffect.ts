@@ -62,8 +62,10 @@ export default class MouseCursorEffect {
         this.cursorWrapper.append(leftImg, rightImg);
         this.appOuterElement.append(this.cursorWrapper);
 
-        this.appOuterElement.addEventListener('mousemove', this.mouseMoveMentCallback.bind(this) as any)
-        this.appOuterElement.addEventListener('click', this.mouseClickCallback.bind(this) as any)
+        this.mouseClickCallback = this.mouseClickCallback.bind(this);
+        this.mouseMoveMentCallback = this.mouseMoveMentCallback.bind(this);
+        this.appOuterElement.addEventListener('mousemove', this.mouseMoveMentCallback as any)
+        this.appOuterElement.addEventListener('click', this.mouseClickCallback as any)
     }
 
     mouseClickCallback(e: MouseEvent) {
@@ -162,8 +164,9 @@ export default class MouseCursorEffect {
 
 
     dispose() {
-        this.appElement.removeEventListener('mousemove', this.mouseMoveMentCallback.bind(this) as any);
-        this.appElement.removeEventListener('click', this.mouseClickCallback.bind(this) as any);
-        // this.cursorWrapper.remove();
+        this.appElement.removeEventListener('mousemove', this.mouseMoveMentCallback as any);
+        this.appElement.removeEventListener('click', this.mouseClickCallback as any);
+        this.cursorWrapper.remove();
+        console.log("disposed")
     }
 }

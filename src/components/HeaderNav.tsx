@@ -35,7 +35,6 @@ function HeaderNav() {
     useEffect(() => {
         animation.current = new GsapAnimations();
 
-        return () => animation.current?.dispose();
     }, [])
     return (
         <header className='hover-effect reset'>

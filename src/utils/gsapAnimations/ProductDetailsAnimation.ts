@@ -58,14 +58,14 @@ export default class ProductDetailsAnimation {
 
     showComponent() {
         this.disableAnimation = true;
-        // this.webGLExperience.world.airpods.disableAnimation = true;
+        this.webGLExperience.world.airpods.disableAnimation = true;
 
-        // this.webGLExperience.world.airpods.animate({
-        //     currentPage: this.animation.currentAnimationPage,
-        //     previousPage: this.animation.previousAnimationPage,
-        //     activeIndex: this.animation.products.productInfoCurrentIndex,
-        //     animateDirection: "Highlight"
-        // })
+        this.webGLExperience.world.airpods.animate({
+            currentPage: this.animation.currentAnimationPage,
+            previousPage: this.animation.previousAnimationPage,
+            activeIndex: this.animation.products.productInfoCurrentIndex,
+            animateDirection: "Highlight"
+        })
         const appMain = document.querySelector('.app > main') as HTMLElement;
 
         const tl = gsap.timeline({ defaults: { duration: 0 } })
@@ -104,16 +104,16 @@ export default class ProductDetailsAnimation {
 
     hideComponent() {
         this.disableAnimation = true;
-        // this.webGLExperience.world.airpods.disableAnimation = true;
+        this.webGLExperience.world.airpods.disableAnimation = true;
 
         if (this.animation.currentAnimationPage === 'Product') {
             // animate webGL
-            // this.webGLExperience.world.airpods.animate({
-            //     currentPage: this.animation.currentAnimationPage,
-            //     previousPage: this.animation.previousAnimationPage,
-            //     activeIndex: this.animation.products.productInfoCurrentIndex,
-            //     animateDirection: "Default"
-            // })
+            this.webGLExperience.world.airpods.animate({
+                currentPage: this.animation.currentAnimationPage,
+                previousPage: this.animation.previousAnimationPage,
+                activeIndex: this.animation.products.productInfoCurrentIndex,
+                animateDirection: "Default"
+            })
 
 
             const tl = gsap.timeline({})
@@ -135,12 +135,12 @@ export default class ProductDetailsAnimation {
                 })
         } else if (this.animation.currentAnimationPage === 'Compactments') {
             // animate webGL
-            // this.webGLExperience.world.airpods.animate({
-            //     currentPage: this.animation.currentAnimationPage,
-            //     previousPage: this.animation.previousAnimationPage,
-            //     activeIndex: this.animation.products.productInfoCurrentIndex,
-            //     animateDirection: "Hide"
-            // })
+            this.webGLExperience.world.airpods.animate({
+                currentPage: this.animation.currentAnimationPage,
+                previousPage: this.animation.previousAnimationPage,
+                activeIndex: this.animation.products.productInfoCurrentIndex,
+                animateDirection: "Hide"
+            })
 
 
             const tl = gsap.timeline({})

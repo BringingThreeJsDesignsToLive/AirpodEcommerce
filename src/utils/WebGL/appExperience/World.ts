@@ -7,7 +7,7 @@ import { sourcesDefaultNames } from './sources';
 import Airpods from './Airpods';
 import DepthOfFieldPostProcessing from './DepthOfFieldPostProcessing';
 import AirpodsCompactment from './AirpodsCompactment';
-import BlurredBackgroundPlanes from './BlurredBackgroundPlanes';
+import TransparentBackgroundPlane from './TransparentBackgroundPlane';
 
 
 export default class World {
@@ -20,8 +20,8 @@ export default class World {
     orbitControls!: OrbitControls;
     airpods: Airpods;
     airpodsCompactment: AirpodsCompactment
-    depthOfFieldPostProcessing: DepthOfFieldPostProcessing;
-    blurredBackgroundPlanes: BlurredBackgroundPlanes;
+    // depthOfFieldPostProcessing: DepthOfFieldPostProcessing;
+    transparentBackgroundPlane: TransparentBackgroundPlane;
     sunlight!: THREE.DirectionalLight
 
     constructor(experience: AppExperience) {
@@ -31,16 +31,19 @@ export default class World {
         this.resourceLoader = experience.resourcesLoader;
         this.loadedResource = experience.resourcesLoader?.items as Record<sourcesDefaultNames, any>
         this.debugUI = experience.debugUI;
-        this.depthOfFieldPostProcessing = new DepthOfFieldPostProcessing(experience);
+        // this.depthOfFieldPostProcessing = new DepthOfFieldPostProcessing(experience);
         this.airpodsCompactment = new AirpodsCompactment(experience);
         this.airpods = new Airpods(experience, this.airpodsCompactment);
-        this.blurredBackgroundPlanes = new BlurredBackgroundPlanes(experience);
+        this.transparentBackgroundPlane = new TransparentBackgroundPlane(experience);
 
 
-        // this.init();
-        // this.airpods.init();
-        // // this.depthOfFieldPostProcessing.init();
-        // this.blurredBackgroundPlanes.init();
+        this.init();
+        this.airpods.init();
+        this.transparentBackgroundPlane.init();
+        // this.depthOfFieldPostProcessing.init();
+
+        this.update = this.update.bind(this);
+        this.destroy = this.destroy.bind(this)
     }
 
     init() {
@@ -49,8 +52,7 @@ export default class World {
         this.experience.renderer.rendererInstance.outputEncoding = THREE.sRGBEncoding;
         // this.experience.renderer.rendererInstance.shadowMap.enabled = true;
 
-        this.addDebugUi();
-        // this.initiateOrbitControls();
+        // this.addDebugUi();
     }
 
     setUpLight() {
@@ -94,18 +96,19 @@ export default class World {
     }
 
     resize() {
-        this.depthOfFieldPostProcessing.resize();
+        // this.depthOfFieldPostProcessing.resize();
     }
 
 
-    update = () => {
+    update() {
         // update on each tick
-        this.airpods.update();
+
         // this.depthOfFieldPostProcessing.update();
         if (this.orbitControls) this.orbitControls.update()
 
     }
 
-    destroy = () => {
+    destroy() {
+        this.airpods.destroy()
     }
 }

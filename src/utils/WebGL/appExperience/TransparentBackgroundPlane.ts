@@ -1,10 +1,9 @@
 import * as THREE from 'three'
-import gsap from 'gsap';
 import AppExperience from ".";
 import DebugUI from '../utils/DebugUI';
 import Sizes from '../utils/Sizes';
 
-export default class BlurredBackgroundPlanes {
+export default class TransparentBackgroundPlane {
     private experience: AppExperience;
     private scene: THREE.Scene;
     private camera: THREE.PerspectiveCamera;
@@ -22,23 +21,12 @@ export default class BlurredBackgroundPlanes {
     }
 
     init() {
-        // this.setUpTransparentPlane();
-        // this.setUpColoredPlanes();
-        // this.addDebugUI();
-    }
-
-    private setUpColoredPlanes() {
-        const geometry = new THREE.CircleGeometry(5, 32);
-        const material = new THREE.MeshBasicMaterial({ color: 'red', transparent: true, opacity: 0.5 })
-
-        this.circlBackground = new THREE.Mesh(geometry, material);
-
-        this.circlBackground.position.set(0, 0, -20);
-
-        this.camera.add(this.circlBackground);
+        this.setUpTransparentPlane();
+        this.addDebugUI();
     }
 
     private setUpTransparentPlane() {
+
         // calculate the plane size using the camera FOV so as to fill up the entire screen that wraps the canvas
         let ang_rad = this.camera.fov * Math.PI / 180;
         let fov_y = this.camera.position.z * Math.tan(ang_rad / 2) * 2;
@@ -47,7 +35,7 @@ export default class BlurredBackgroundPlanes {
 
         const material = new THREE.MeshBasicMaterial({})
         material.transparent = true;
-        material.opacity = 0.05
+        material.opacity = 0.5
         material.color = new THREE.Color("#ffffff")
 
 
@@ -55,27 +43,9 @@ export default class BlurredBackgroundPlanes {
 
         this.transparentBackground.position.set(0, 0, -4)
 
-        // this.camera.add(this.transparentBackground);
+        this.camera.add(this.transparentBackground);
     }
 
-    toggleVisibility(shouldDisplay: boolean) {
-
-        if (shouldDisplay) {
-            gsap.to(this.circlBackground.material, {
-                opacity: 0.5,
-                duration: 1,
-                ease: 'power3.inOut'
-            })
-        } else {
-            gsap.to(this.circlBackground.material,
-                {
-                    opacity: 0,
-                    duration: 1,
-                    ease: 'power3.inOut'
-                }
-            )
-        }
-    }
 
     private addDebugUI() {
         if (this.debugUI.isActive) {

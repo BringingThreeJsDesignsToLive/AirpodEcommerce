@@ -58,6 +58,7 @@ export default class Airpods {
                 airpod5: this.loadedResource.airpod5,
             }
 
+
             // Prepare Object and add them to scene
             this.activeProductIndex = 1;
             this.modelDistance = new THREE.Vector3(4, 1, 6);
@@ -87,7 +88,7 @@ export default class Airpods {
             this.animatedModelGsapInstance = this.animateActiveModel();
 
 
-            // this.addDebugUI();
+            this.addDebugUI();
 
         })
     }
@@ -113,6 +114,7 @@ export default class Airpods {
 
     private animateOnProductPage(animateDirection: AnimateDirectionType, previousPage: AnimationPagesType) {
         const activeModel = this.models[`airpod${this.activeProductIndex}`]
+
 
         const otherModels = this.getUnactiveModels(activeModel);
 
@@ -359,11 +361,7 @@ export default class Airpods {
         }
     }
 
-    update() {
-
-    }
-
     destroy() {
-
+        this.models = [];
     }
 }

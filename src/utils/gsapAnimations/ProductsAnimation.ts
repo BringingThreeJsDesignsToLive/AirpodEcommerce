@@ -36,31 +36,31 @@ export default class ProductsAnimation {
         if (indexDetails.animateDirection === 'Forward') { // animate forward
             // disable animation, will be re-enable when all animation is done
             this.disableAnimation = true;
-            // this.webGLExperience.world.airpods.disableAnimation = true;
+            this.webGLExperience.world.airpods.disableAnimation = true;
 
             this.productInfoCurrentIndex++;
             this.slideUp(indexDetails.index);
-            // this.webGLExperience.world.airpods.animate({
-            //     currentPage: this.animation.currentAnimationPage,
-            //     previousPage: this.animation.previousAnimationPage,
-            //     activeIndex: this.productInfoCurrentIndex,
-            //     animateDirection: indexDetails.animateDirection
-            // })
+            this.webGLExperience.world.airpods.animate({
+                currentPage: this.animation.currentAnimationPage,
+                previousPage: this.animation.previousAnimationPage,
+                activeIndex: this.productInfoCurrentIndex,
+                animateDirection: indexDetails.animateDirection
+            })
 
 
         } else if (indexDetails.animateDirection === 'Backward') { // animate backward
             // disable animation, will be re-enable when all animation is done
             this.disableAnimation = true;
-            // this.webGLExperience.world.airpods.disableAnimation = true;
+            this.webGLExperience.world.airpods.disableAnimation = true;
 
             this.productInfoCurrentIndex--;
             this.slideDown(indexDetails.index);
-            // this.webGLExperience.world.airpods.animate({
-            //     currentPage: this.animation.currentAnimationPage,
-            //     previousPage: this.animation.previousAnimationPage,
-            //     activeIndex: this.productInfoCurrentIndex,
-            //     animateDirection: indexDetails.animateDirection
-            // })
+            this.webGLExperience.world.airpods.animate({
+                currentPage: this.animation.currentAnimationPage,
+                previousPage: this.animation.previousAnimationPage,
+                activeIndex: this.productInfoCurrentIndex,
+                animateDirection: indexDetails.animateDirection
+            })
         }
     }
 

@@ -25,22 +25,26 @@ export default class AppExperience extends DefaultExperience {
         if (AppExperience._instance instanceof AppExperience) {
             return AppExperience._instance
         }
-        super(camera3dSpace, defaultExperienceOptions)
+        super(camera3dSpace, defaultExperienceOptions);
 
         this.gsapAnimation = gsapAnimation
         this.world = new World(this);
 
-        // Create Singleton
-        AppExperience._instance = this;
 
         //Time tick event
-        this.time.on('tick', this.updateWithTick.bind(this))
+        this.updateWithTick = this.updateWithTick.bind(this)
+        this.time.on('tick', this.updateWithTick)
 
         // window resize
-        this.sizes.on('resize', this.onResize.bind(this))
+        this.onResize = this.onResize.bind(this)
+        this.sizes.on('resize', this.onResize)
+
+        // Create Singleton
+        AppExperience._instance = this;
     }
 
     onResize() {
+        // console.log(this)
         this.world.resize()
     }
 
@@ -51,8 +55,8 @@ export default class AppExperience extends DefaultExperience {
     }
 
     destroyExperience() {
-        AppExperience._instance = null;
-        this.destroyDefaultExperience();
         this.world.destroy();
+        this.destroyDefaultExperience();
+        AppExperience._instance = null;
     }
 }

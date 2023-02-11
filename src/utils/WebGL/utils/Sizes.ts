@@ -21,10 +21,11 @@ export default class Sizes extends EventEmitter {
 
 
         // On Resize
+        this.resizeEventCallback = this.resizeEventCallback.bind(this)
         window.addEventListener('resize', this.resizeEventCallback)
     }
 
-    private resizeEventCallback = () => {
+    private resizeEventCallback() {
         // update values on screen resize
 
         if (this.useWindowSizeOnResize) {
@@ -45,7 +46,7 @@ export default class Sizes extends EventEmitter {
         this.trigger('resize')
     }
 
-    destroy = () => {
+    destroy() {
         window.removeEventListener('resize', this.resizeEventCallback);
         this.off('resize');
     }
