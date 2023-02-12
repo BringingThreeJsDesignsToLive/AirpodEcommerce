@@ -133,9 +133,27 @@
   margin-left: .5em;
 }
 
+.loadingCover {
+  position: absolute;
+  flex-direction: column;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255, 0.5);
+  font-size: larger;
+  font-weight: bold;
+}
+
 @media only screen and (min-width: 700px) {
   .app_outer {
     width: 80%;
     height: 80%;
+  }
+
+  .loadingCover {
+    flex-direction: row;
   }
 }

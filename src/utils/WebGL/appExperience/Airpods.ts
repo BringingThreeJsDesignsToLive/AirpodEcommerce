@@ -8,9 +8,12 @@ import { AnimateDirectionType, AnimationPagesType } from '../../gsapAnimations/t
 import Animation from '../../gsapAnimations';
 import AirpodsCompactment from './AirpodsCompactment';
 import { AnimateMethodProps } from './types';
+import World from './World';
+import Loading from './Loading';
 
 export default class Airpods {
     private experience: AppExperience;
+    private loading: Loading;
     private camera: THREE.PerspectiveCamera;
     private resourceLoader: ResourcesLoader;
     private loadedResource: Record<sourcesDefaultNames, any>;
@@ -25,8 +28,9 @@ export default class Airpods {
     private productDetailsPageActiveModelCoord!: THREE.Vector3; // Active model coordinate just before user left the productDetails page
     private animatedModelGsapInstance!: GSAPTimeline;
     disableAnimation: boolean;
-    constructor(experience: AppExperience, airpodsCompactment: AirpodsCompactment) {
+    constructor(experience: AppExperience, airpodsCompactment: AirpodsCompactment, loading: Loading) {
         this.experience = experience;
+        this.loading = loading
         this.camera = experience.camera.cameraInstance;
         this.scene = experience.scene;
         this.debugUI = experience.debugUI;
@@ -43,7 +47,7 @@ export default class Airpods {
     }
 
     setUpModel() {
-        this.resourceLoader.loadSources(sourcesDefaultClone);
+        this.resourceLoader.loadSources(sourcesDefaultClone, this.loading.loadingManager);
         const groupName = sourcesDefaultClone[0].groupName
 
         this.resourceLoader.on(`${groupName}Ready`, () => {

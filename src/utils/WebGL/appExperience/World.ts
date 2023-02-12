@@ -8,6 +8,7 @@ import Airpods from './Airpods';
 import DepthOfFieldPostProcessing from './DepthOfFieldPostProcessing';
 import AirpodsCompactment from './AirpodsCompactment';
 import TransparentBackgroundPlane from './TransparentBackgroundPlane';
+import Loading from './Loading';
 
 
 export default class World {
@@ -18,6 +19,7 @@ export default class World {
     private debugUI: DebugUI;
     gsapAnimation!: Animation;
     orbitControls!: OrbitControls;
+    loading: Loading;
     airpods: Airpods;
     airpodsCompactment: AirpodsCompactment
     // depthOfFieldPostProcessing: DepthOfFieldPostProcessing;
@@ -31,9 +33,10 @@ export default class World {
         this.resourceLoader = experience.resourcesLoader;
         this.loadedResource = experience.resourcesLoader?.items as Record<sourcesDefaultNames, any>
         this.debugUI = experience.debugUI;
+        this.loading = new Loading(experience);
         // this.depthOfFieldPostProcessing = new DepthOfFieldPostProcessing(experience);
         this.airpodsCompactment = new AirpodsCompactment(experience);
-        this.airpods = new Airpods(experience, this.airpodsCompactment);
+        this.airpods = new Airpods(experience, this.airpodsCompactment, this.loading);
         this.transparentBackgroundPlane = new TransparentBackgroundPlane(experience);
 
 
