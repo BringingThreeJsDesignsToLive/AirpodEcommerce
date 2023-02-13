@@ -22,8 +22,8 @@ export default class World {
     loading: Loading;
     airpods: Airpods;
     airpodsCompactment: AirpodsCompactment
-    // depthOfFieldPostProcessing: DepthOfFieldPostProcessing;
-    transparentBackgroundPlane: TransparentBackgroundPlane;
+    depthOfFieldPostProcessing: DepthOfFieldPostProcessing;
+    // transparentBackgroundPlane: TransparentBackgroundPlane;
     sunlight!: THREE.DirectionalLight
 
     constructor(experience: AppExperience) {
@@ -34,16 +34,16 @@ export default class World {
         this.loadedResource = experience.resourcesLoader?.items as Record<sourcesDefaultNames, any>
         this.debugUI = experience.debugUI;
         this.loading = new Loading(experience);
-        // this.depthOfFieldPostProcessing = new DepthOfFieldPostProcessing(experience);
+        this.depthOfFieldPostProcessing = new DepthOfFieldPostProcessing(experience);
         this.airpodsCompactment = new AirpodsCompactment(experience);
         this.airpods = new Airpods(experience, this.airpodsCompactment, this.loading);
-        this.transparentBackgroundPlane = new TransparentBackgroundPlane(experience);
+        // this.transparentBackgroundPlane = new TransparentBackgroundPlane(experience);
 
 
         this.init();
         this.airpods.init();
-        this.transparentBackgroundPlane.init();
-        // this.depthOfFieldPostProcessing.init();
+        // this.transparentBackgroundPlane.init();
+        this.depthOfFieldPostProcessing.init();
 
         this.update = this.update.bind(this);
         this.destroy = this.destroy.bind(this)
@@ -53,6 +53,8 @@ export default class World {
         this.setUpLight();
 
         this.experience.renderer.rendererInstance.outputEncoding = THREE.sRGBEncoding;
+        this.experience.renderer.rendererInstance.setClearColor(new THREE.Color("white"))
+
         // this.experience.renderer.rendererInstance.shadowMap.enabled = true;
 
         // this.addDebugUi();
@@ -99,14 +101,14 @@ export default class World {
     }
 
     resize() {
-        // this.depthOfFieldPostProcessing.resize();
+        this.depthOfFieldPostProcessing.resize();
     }
 
 
     update() {
         // update on each tick
 
-        // this.depthOfFieldPostProcessing.update();
+        this.depthOfFieldPostProcessing.update();
         if (this.orbitControls) this.orbitControls.update()
 
     }

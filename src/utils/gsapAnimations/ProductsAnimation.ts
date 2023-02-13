@@ -160,7 +160,6 @@ export default class ProductsAnimation {
         const gradientChildren = gsap.utils.toArray(gradientBackgroundInnerWrapper.children)
         const tl = gsap.timeline({});
 
-        // this.webGLExperience.world.blurredBackgroundPlanes.toggleVisibility(false);
 
         tl.to(
             activeProductInfo.children,
@@ -189,7 +188,7 @@ export default class ProductsAnimation {
                     duration: 0,
                     onComplete: () => {
                         this.animation.productDetails.showComponent();
-                        // this.webGLExperience.world.depthOfFieldPostProcessing.togglePassesState(false);
+                        this.webGLExperience.world.depthOfFieldPostProcessing.togglePassesState(false);
                     }
                 },
                 'hide'
@@ -199,8 +198,7 @@ export default class ProductsAnimation {
     }
 
     showComponent() {
-        // this.webGLExperience.world.depthOfFieldPostProcessing.togglePassesState(true);
-        // this.webGLExperience.world.blurredBackgroundPlanes.toggleVisibility(true);
+        this.webGLExperience.world.depthOfFieldPostProcessing.togglePassesState(true);
 
         const appMain = document.querySelector('.app > main') as HTMLElement;
         const productWrapper = document.querySelector('.product_wrapper') as HTMLElement;
