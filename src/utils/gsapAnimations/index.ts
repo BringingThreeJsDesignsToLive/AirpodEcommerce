@@ -46,8 +46,8 @@ export default class Animation {
 
 
     dispose() {
-        // this.mouseEffect.dispose();
-        // this.webGLExperience.destroyExperience();
-        // Animation._instance = null;
+        this.mouseEffect.dispose();
+        this.webGLExperience.destroyExperience();
+        Animation._instance = null;
     }
 }

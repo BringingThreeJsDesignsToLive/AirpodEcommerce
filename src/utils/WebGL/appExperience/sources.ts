@@ -31,14 +31,14 @@ const sourcesDefault = [
     {
         name: 'airpod4',
         type: 'gltfModel',
-        path: '/webGL/airpod3.glb',
+        path: '/webGL/airpod4.glb',
         useDraco: true,
         groupName: 'airpods',
     },
     {
         name: 'airpod5',
         type: 'gltfModel',
-        path: '/webGL/airpod3.glb',
+        path: '/webGL/airpod5.glb',
         useDraco: true,
         groupName: 'airpods',
     },

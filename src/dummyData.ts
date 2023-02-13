@@ -33,8 +33,8 @@ const productsData: productDataType[] = [
         id: 4
     },
     {
-        brand: 'Oraimo',
-        name: 'FreePods 2',
+        brand: 'Samsung',
+        name: 'Buds',
         price: 120.0,
         id: 4
     },
