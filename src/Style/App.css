@@ -147,6 +147,21 @@
   font-weight: bold;
 }
 
+.credits {
+  display: none;
+  position: absolute;
+  bottom: 10px;
+  justify-content: space-around;
+  width: 100%;
+  font-size: smaller;
+}
+
+
+.credits>span a {
+  color: gray;
+  margin-left: .5em;
+}
+
 @media only screen and (min-width: 700px) {
   .app_outer {
     width: 80%;
@@ -155,5 +170,9 @@
 
   .loadingCover {
     flex-direction: row;
+  }
+
+  .credits {
+    display: flex;
   }
 }

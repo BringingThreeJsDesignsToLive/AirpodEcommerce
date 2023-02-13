@@ -8,7 +8,7 @@ import Footer from './components/Footer';
 import GsapAnimations from './utils/gsapAnimations'
 import ProductDetail from './components/ProductDetail';
 import ProductCompactments from './components/ProductCompactments';
-import { BallTriangle } from 'react-loader-spinner';
+import LoadingOverlay from './components/LoadingOverlay';
 
 
 function App() {
@@ -56,17 +56,25 @@ function App() {
           <WebglCanvas />
         </div>
         <div role={'presentation'} className="gradient_background_outer" />
-        <div role={"presentation"} className="loadingCover">
-          <BallTriangle
-            height={100}
-            width={100}
-            radius={5}
-            color="#000000"
-            ariaLabel="ball-triangle-loading"
-            visible={true}
-          />
-          <span>Loading Airpod 3D Models......</span>
+        <div className='credits'>
+          <span className='designer'>
+            <small>
+              Designed by
+            </small>
+            <a href="https://www.pinterest.com/pin/606437906073934539/">
+              webcluesglobal
+            </a>
+          </span>
+          <span className='dev'>
+            <span>
+              Built with &#10084;&#65039; by
+            </span>
+            <a href="https://www.linkedin.com/in/adeyanju-adeyemi-88b058235/">
+              Adeyanju Adeyemi
+            </a>
+          </span>
         </div>
+        <LoadingOverlay />
       </div>
 
     </BrowserRouter>
